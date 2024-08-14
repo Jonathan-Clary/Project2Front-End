@@ -14,7 +14,7 @@ TEXT HERE
 
 [![Front-end Lead](https://img.shields.io/badge/Frontend%20Lead-Justin_Swinney-blue)](https://github.com/Justin-swinney)
 
-[![Developer](https://img.shields.io/badge/Developer-FIRSTNAME_LASTNAME-blue)](https://github.com/USERNAMEHERE)
+[![Developer](https://img.shields.io/badge/Developer-Matthew_Taillon-blue)](https://github.com/MacroGamer)
 
 [![Developer](https://img.shields.io/badge/Developer-FIRSTNAME_LASTNAME-blue)](https://github.com/USERNAMEHERE)
 
