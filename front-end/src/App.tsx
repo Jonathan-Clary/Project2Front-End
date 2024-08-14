@@ -1,13 +1,11 @@
 import React from 'react';
 import './App.css';
-import { Temp } from './components/Temp';
+import { SupportTickets } from './components/admin/support-tickets/SupportTickets';
 
 const App: React.FC = () => {
   return (
     <div className="App">
-
-     <h1>TESTING BOOTSTRAP</h1>
-     <Temp></Temp>
+     <SupportTickets></SupportTickets>
     </div>
   );
 }
