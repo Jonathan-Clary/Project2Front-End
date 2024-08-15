@@ -1,11 +1,11 @@
 import React from 'react'
 import { Table } from 'react-bootstrap';
-import { TicketInterface } from '../../../interfaces/SuppportTicketInterface';
+import { SupportTicketInterface } from '../../../interfaces/support-ticket/SuppportTicketInterface';
 
 
 interface SupportTicketTableProps {
     columnNames: string[];
-    data: TicketInterface[];
+    data: SupportTicketInterface[];
 }
 
 export const SupportTicketTable: React.FC<SupportTicketTableProps> = ({ columnNames, data }) => {
@@ -24,12 +24,11 @@ export const SupportTicketTable: React.FC<SupportTicketTableProps> = ({ columnNa
 
                 {data.map((ticket, index) => (
                     <tr key={index}>
-                  
-                        <td>{ticket.id}</td>
+                        <td>{ticket.supportTicketId}</td>
                         <td>{ticket.type}</td>
-                        <td>{ticket.userId}</td>
-                        <td>{ticket.dateCreated.toLocaleDateString()}</td>
                         <td>{ticket.status}</td>
+                        <td>{ticket.description}</td>
+                        <td>{ticket.createdAt?.toLocaleDateString()}</td>
                     </tr>
                 ))}
             </tbody>

@@ -1,56 +1,217 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SupportTicketTable } from '../support-ticket-table/SupportTicketTable'
-import { TicketInterface } from '../../../interfaces/SuppportTicketInterface';
-import { Container } from 'react-bootstrap';
+import { SupportTicketInterface } from '../../../interfaces/support-ticket/SuppportTicketInterface';
+import { Card, Container, Nav, Pagination } from 'react-bootstrap';
+import { TicketStatusEnum } from '../../../enums/support-tickets/TicketStatusEnum';
+import { TicketTypeEnum } from '../../../enums/support-tickets/TicketTypeEnum';
+import './SuppportTicket.css';
 
-const mockData: TicketInterface[] = [
+// TEMP DATA
+const mockData: SupportTicketInterface[] = [
     {
-        id: '001',
-        type: 'Booking Support',
-        userId: 'user123',
-        dateCreated: new Date('2023-08-01T10:00:00Z'),
-        status: 'Open'
+        supportTicketId: 1,
+        // User HERE
+        status: TicketStatusEnum.PENDING,
+        type: TicketTypeEnum.TECHNICAL_ISSUES,
+        description: "GENERAL PROBLEM DESCRIPTION",
+        createdAt: new Date('2023-08-01T10:00:00Z')
     },
     {
-        id: '002',
-        type: 'Account Support',
-        userId: 'user456',
-        dateCreated: new Date('2023-08-05T14:30:00Z'),
-        status: 'In Progress'
+        supportTicketId: 5,
+        // User HERE
+        status: TicketStatusEnum.PENDING,
+        type: TicketTypeEnum.TECHNICAL_ISSUES,
+        description: "TECHNICAL_ISSUES PROBLEM DESCRIPTION",
+        createdAt: new Date('2023-08-01T10:00:00Z')
     },
     {
-        id: '003',
-        type: 'Booking Support',
-        userId: 'user789',
-        dateCreated: new Date('2023-08-10T09:15:00Z'),
-        status: 'Resolved'
+        supportTicketId: 4,
+        // User HERE
+        status: TicketStatusEnum.RESOLVED,
+        type: TicketTypeEnum.GENERAL,
+        description: "GENERAL PROBLEM DESCRIPTION",
+        createdAt: new Date('2023-08-01T10:00:00Z')
     },
     {
-        id: '004',
-        type: 'Account Support',
-        userId: 'user012',
-        dateCreated: new Date('2023-08-12T12:45:00Z'),
-        status: 'Open'
+        supportTicketId: 3,
+        // User HERE
+        status: TicketStatusEnum.PENDING,
+        type: TicketTypeEnum.PRIVACY,
+        description: "PRIVACY PROBLEM DESCRIPTION",
+        createdAt: new Date('2023-08-01T10:00:00Z')
     },
     {
-        id: '005',
-        type: 'Account Support',
-        userId: 'user345',
-        dateCreated: new Date('2023-08-13T16:20:00Z'),
-        status: 'Resolved'
-    }
+        supportTicketId: 2,
+        // User HERE
+        status: TicketStatusEnum.PENDING,
+        type: TicketTypeEnum.FEEDBACK,
+        description: "FEEDBACK PROBLEM DESCRIPTION",
+        createdAt: new Date('2023-08-01T10:00:00Z')
+    },
+    {
+        supportTicketId: 1,
+        // User HERE
+        status: TicketStatusEnum.PENDING,
+        type: TicketTypeEnum.TECHNICAL_ISSUES,
+        description: "GENERAL PROBLEM DESCRIPTION",
+        createdAt: new Date('2023-08-01T10:00:00Z')
+    },
+    {
+        supportTicketId: 5,
+        // User HERE
+        status: TicketStatusEnum.PENDING,
+        type: TicketTypeEnum.TECHNICAL_ISSUES,
+        description: "TECHNICAL_ISSUES PROBLEM DESCRIPTION",
+        createdAt: new Date('2023-08-01T10:00:00Z')
+    },
+    {
+        supportTicketId: 4,
+        // User HERE
+        status: TicketStatusEnum.PENDING,
+        type: TicketTypeEnum.INFORMATION,
+        description: "INFORMATION PROBLEM DESCRIPTION",
+        createdAt: new Date('2023-08-01T10:00:00Z')
+    },
+    {
+        supportTicketId: 3,
+        // User HERE
+        status: TicketStatusEnum.PENDING,
+        type: TicketTypeEnum.PRIVACY,
+        description: "PRIVACY PROBLEM DESCRIPTION",
+        createdAt: new Date('2023-08-01T10:00:00Z')
+    },
+    {
+        supportTicketId: 2,
+        // User HERE
+        status: TicketStatusEnum.PENDING,
+        type: TicketTypeEnum.FEEDBACK,
+        description: "FEEDBACK PROBLEM DESCRIPTION",
+        createdAt: new Date('2023-08-01T10:00:00Z')
+    },
+    {
+        supportTicketId: 1,
+        // User HERE
+        status: TicketStatusEnum.PENDING,
+        type: TicketTypeEnum.TECHNICAL_ISSUES,
+        description: "GENERAL PROBLEM DESCRIPTION",
+        createdAt: new Date('2023-08-01T10:00:00Z')
+    },
+    {
+        supportTicketId: 5,
+        // User HERE
+        status: TicketStatusEnum.PENDING,
+        type: TicketTypeEnum.TECHNICAL_ISSUES,
+        description: "TECHNICAL_ISSUES PROBLEM DESCRIPTION",
+        createdAt: new Date('2023-08-01T10:00:00Z')
+    },
+    {
+        supportTicketId: 4,
+        // User HERE
+        status: TicketStatusEnum.PENDING,
+        type: TicketTypeEnum.GENERAL,
+        description: "GENERAL PROBLEM DESCRIPTION",
+        createdAt: new Date('2023-08-01T10:00:00Z')
+    },
+    {
+        supportTicketId: 3,
+        // User HERE
+        status: TicketStatusEnum.PENDING,
+        type: TicketTypeEnum.PRIVACY,
+        description: "PRIVACY PROBLEM DESCRIPTION",
+        createdAt: new Date('2023-08-01T10:00:00Z')
+    },
+    {
+        supportTicketId: 2,
+        // User HERE
+        status: TicketStatusEnum.PENDING,
+        type: TicketTypeEnum.FEEDBACK,
+        description: "FEEDBACK PROBLEM DESCRIPTION",
+        createdAt: new Date('2023-08-01T10:00:00Z')
+    },
 ];
+
+/* 
+    TODO: 
+        1. RESOLVED TICKETS SHOULD GO IN HISTORY TABLE OF SOME KIND 
+        2. FILTER BY TICKET TYPE (INFORMATION, PRIVACY, FEEDBACK, TECHNICAL_ISSUES, GENERAL )
+        3. SET UP PAGINATION
+        4. 
+
+*/
 
 
 export const SupportTickets: React.FC = () => {
-    const filteredData =  mockData.filter(mockData => mockData.type != 'Booking Support');
-    
+    const [filterData, setFilterData] = useState(mockData);
+    const [typeFilter, setTypeFilter] = useState('General');
+
+
+    const handleTabFilters = () => {
+        let filtered;
+        switch (typeFilter) {
+            case 'General':
+                filtered = mockData.filter(mockData => mockData.type == TicketTypeEnum.GENERAL && mockData.status == 'PENDING');
+
+                break;
+            case 'Technical_Issues':
+                filtered = mockData.filter(mockData => mockData.type == TicketTypeEnum.TECHNICAL_ISSUES && mockData.status == 'PENDING');
+                break;
+            case 'Information':
+                filtered = mockData.filter(mockData => mockData.type == TicketTypeEnum.INFORMATION && mockData.status == 'PENDING');
+                break;
+            case 'Feedback':
+                filtered = mockData.filter(mockData => mockData.type == TicketTypeEnum.FEEDBACK && mockData.status == 'PENDING');
+                break;
+            case 'Privacy':
+                filtered = mockData.filter(mockData => mockData.type == TicketTypeEnum.PRIVACY && mockData.status == 'PENDING');
+                break;
+            default:
+                filtered = mockData;
+        }
+        setFilterData(filtered);
+    }
+
+    useEffect(() => {
+        handleTabFilters();
+    }, [typeFilter])
 
     return (
-        <>
-        <SupportTicketTable columnNames={["ID", "Type", "User ID", "Date Created", "Status"]} data={filteredData}/>
-            
-        </>
+        <Container>
+            <Card className='mt-5'>
+                <Card.Header>
+                    <Nav justify variant="tabs" defaultActiveKey="#General">
+                        <Nav.Item onClick={() => setTypeFilter('General')}>
+                            <Nav.Link href="#General">General</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item onClick={() => setTypeFilter('Technical_Issues')}>
+                            <Nav.Link href="#Technical_Issues">Technical Issues</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item onClick={() => setTypeFilter('Information')}>
+                            <Nav.Link href="#Information">Information</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item onClick={() => setTypeFilter('Feedback')}>
+                            <Nav.Link href="#Feedback">Feedback</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item onClick={() => setTypeFilter('Privacy')}>
+                            <Nav.Link href="#Privacy">Privacy</Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+                </Card.Header>
+                <Card.Body>
+                    <Card.Title>Support Tickets</Card.Title>
+                    <SupportTicketTable columnNames={["ID", "Type", "Status", "Description", "Creation Date"]} data={filterData} />
+
+                    {/* PAGINATION */}
+
+                    <Pagination className="justify-content-end">
+                        <Pagination.Prev>Previous</Pagination.Prev>
+                       
+                        <Pagination.Next>Next</Pagination.Next>
+                    </Pagination>
+                </Card.Body>
+            </Card>
+
+
+        </Container>
 
     )
 }
