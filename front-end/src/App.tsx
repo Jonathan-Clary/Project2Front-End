@@ -1,15 +1,20 @@
 import React from 'react';
 import './App.css';
 import { Temp } from './components/Temp';
-
-const App: React.FC = () => {
+import { LoginContainer } from './components/LoginComponents/LoginContainer';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+function App() {
   return (
     <div className="App">
-
-     <h1>TESTING BOOTSTRAP</h1>
-     <Temp></Temp>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginContainer />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
 
+
 export default App;
+
