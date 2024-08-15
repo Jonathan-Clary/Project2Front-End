@@ -16,11 +16,15 @@ export const CustomerHomePage: React.FC = () => {
         <p>Search Results Here</p>
         <Container className="d-flex flex-wrap bg-primary justify-content-center">
           <CardComponent></CardComponent>
+          <CardComponent></CardComponent>
+          <CardComponent></CardComponent>
+          <CardComponent></CardComponent>
+          <CardComponent></CardComponent>
         </Container>
       </div>
-      <div className="Trending">
+      <div className="Trending ">
         <p>Trending Hotels Here</p>
-        <Container className="d-flex flex-wrap bg-primary justify-content-center">
+        <Container className="d-flex flex-wrap bg-primary justify-content-center overflow-auto">
           <Carousel variant="dark">
             <CarouselItem className="d-flex">
               <CardComponent></CardComponent>

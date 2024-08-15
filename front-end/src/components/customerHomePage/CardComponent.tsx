@@ -8,9 +8,9 @@ export const CardComponent: React.FC<any> = (hotels: HotelInterface) => {
       <Card bg="light" border="dark">
         <Card.Img variant="top" src="logo192.png" />
         <Card.Body>
-          <Card.Title>{hotels.hotelName}</Card.Title>
+          <Card.Title>{hotels.hotelName} Name Goes Here</Card.Title>
           <Card.Text>
-            {hotels.hotelId}
+            {hotels.hotelId} Description goes here
           </Card.Text>
           <Button variant="primary">Go somewhere</Button>
         </Card.Body>
