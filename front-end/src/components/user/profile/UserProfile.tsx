@@ -55,15 +55,23 @@ export default function UserProfile(){
                 setSuccessMessage("Updated Successfully");
             })
             .catch((error) =>{
-                // if(error.response){
-                //     if(error.response?.status == 401){
-                //         localStorage.clear();
-                //         navigate('/login');
-                //     }
-                //     if(error.response.data.username)
-                //         setUsernameMsg(error.response.data.username);
-                // }
-                // else
+                if(error.response){
+                    if(error.response.status == 401){
+                        // localStorage.clear();
+                        // navigate('/login');
+                    }
+                    else{
+                        if(error.response.email)
+                            setEmailMsg(error.response.email)
+                        if(error.response.firstName)
+                            setFirstNameMsg(error.response.firstName)
+                        if(error.response.lastName)
+                            setLastNameMsg(error.response.lastName)
+                        if(error.response.password)
+                            setPasswordMsg(error.response.password)
+                    } 
+                }
+                else // if there was no response (server is off)
                     setMessage("something went wrong.");
             })
             .finally(()=>{setSpin(false)})
@@ -90,7 +98,6 @@ export default function UserProfile(){
 
         if(input.target.name == "email"){
             let value = input.target.value.trim();
-            console.log(value ,"   ",value.match(isValidEmail))
             setEmail(value);
             if(value.length > 0 && !value.match(isValidEmail))
                 setEmailMsg("please enter a valid email");
@@ -116,27 +123,33 @@ export default function UserProfile(){
             setDisableBtn(true);
 
         if(userId < 0){
-            api.get('/user/me')
-            .then(function (response) {
-                setUserId(response.data.userId)
-                setFirstName(response.data.firstName);
-                setLastName(response.data.lastName);
-                setEmail(response.data.email);
-            })
-            .catch((error) =>{
+            let user_from_context_api = {"userId":1, "firstName":"fname", "lastName":"lname", "email":"test@test.test"}
+            setUserId(user_from_context_api.userId)
+            setFirstName(user_from_context_api.firstName);
+            setLastName(user_from_context_api.lastName);
+            setEmail(user_from_context_api.email);
+
+            // api.get('/user/me')
+            // .then(function (response) {
+            //     setUserId(response.data.userId)
+            //     setFirstName(response.data.firstName);
+            //     setLastName(response.data.lastName);
+            //     setEmail(response.data.email);
+            // })
+            // .catch((error) =>{
                 // if(error.response){
                 //     if(error.response.status == 401)
                 //         navigate('/login')
                 // }
                 // else
-                    setMessage("something went wrong.");
-            })
+        //             setMessage("something went wrong.");
+        //     })
         }
     });
     
 
     return(
-        <Container>
+        <Container style={{width:'30vw'}}>
             <Card className="border border-light-subtle rounded-3 shadow-sm">
                 <Card.Body className="p-3 p-md-4 p-xl-5 q">
                     <h2 className="fs-6 fw-normal text-center text-secondary mb-4">Update Account Info</h2>
