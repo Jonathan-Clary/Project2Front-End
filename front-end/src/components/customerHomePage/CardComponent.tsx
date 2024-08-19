@@ -1,7 +1,11 @@
-import { Button, Card } from "react-bootstrap";
+import { Button, Card} from "react-bootstrap";
 import { HotelInterface } from "../../interfaces/HotelInterface";
+import React from "react";
+import HotelDetails from "./HotelDetails";
 
 export const CardComponent: React.FC<any> = (hotels: HotelInterface) => {
+
+  
 
   return (
     <div className="m-3 shadow">
@@ -12,7 +16,7 @@ export const CardComponent: React.FC<any> = (hotels: HotelInterface) => {
           <Card.Text>
             {hotels.hotelId} Description goes here
           </Card.Text>
-          <Button variant="primary">Go somewhere</Button>
+          <HotelDetails hotelId={hotels.hotelId} hotelName={hotels.hotelName}></HotelDetails>
         </Card.Body>
       </Card>
     </div>
