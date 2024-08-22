@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Card, Container, FloatingLabel, Form } from 'react-bootstrap';
 import './UserLogin.css';
 import { useAuth } from '../../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export const UserLogin: React.FC = () => {
     /* const [user, setUser] = useState({ username: "", password: "" });
@@ -19,7 +20,7 @@ export const UserLogin: React.FC = () => {
     const { login } = useAuth();
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-
+    const navigate = useNavigate();
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -89,6 +90,7 @@ export const UserLogin: React.FC = () => {
                         type="button"
                         className="w-100 mt-2 mb-4"
                         variant="secondary"
+                        onClick={() => navigate('/register')}
                     >
                         Register
                     </Button>

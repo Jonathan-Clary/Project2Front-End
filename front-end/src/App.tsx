@@ -4,6 +4,7 @@ import { LoginContainer } from './components/login-components/LoginContainer';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { useAuth } from './contexts/AuthContext';
+import { Register } from './components/login-components/registration/Register';
 
 function App() {
   const { token } = useAuth();
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginContainer />} />
         <Route path="/temp" element={token ? <Temp /> : <Navigate to="/" />} />
+        <Route path="/register" element={<Register/>} /> 
       </Routes>
 
     </div >
