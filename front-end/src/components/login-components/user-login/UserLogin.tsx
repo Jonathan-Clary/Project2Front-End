@@ -52,7 +52,7 @@ export const UserLogin: React.FC = () => {
          </div> */
 
         <Container className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-            <Card className="login-card">
+            <Card className="login-card shadow">
                 <Card.Header className='login-card-header'>
                 </Card.Header>
                 <Form className="w-75 mx-auto d-flex flex-column justify-content-center align-items-center h-100" onSubmit={handleLogin}>

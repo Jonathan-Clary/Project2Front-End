@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 export const AdminLogin: React.FC = () => {
     const [admin, setAdmin] = useState({ username: "", password: "" });
