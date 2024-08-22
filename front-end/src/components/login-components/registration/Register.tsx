@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Button, Card, Container, FloatingLabel, Form } from "react-bootstrap"
-
+import './Register.css'
 export const Register: React.FC = () => {
 
     const[errorMessage, setErrorMessage] = useState('')
@@ -9,7 +9,7 @@ export const Register: React.FC = () => {
     return(
         <Container className = "d-flex justify-content-center align-items-center min-vh-100" style={{ height: '100vh' }}>
             <Card className="register-card">
-                <Card.Header style={{width: '500px'}}></Card.Header>
+                <Card.Header className="register-card-header"style={{width: '500px'}}></Card.Header>
                 <Form className ="w-75 mx-auto d-flex flex-column justify-content-center align-items-center h-100">
                     <h3 className="mb-4 mt-3">Register</h3>
                     <FloatingLabel controlId="floatingInput" label="Email" className="mb-3 w-100">
