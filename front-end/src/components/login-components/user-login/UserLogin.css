@@ -1,0 +1,13 @@
+body {
+    height: 100vh!important;
+    background-color: aliceblue !important;
+}
+
+.login-card-header {
+    background-image: url('/public/images/login-page-image.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 500px!important;
+    height: 250px!important;
+}
+

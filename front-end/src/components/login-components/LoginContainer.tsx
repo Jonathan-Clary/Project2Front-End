@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { UserLogin } from './UserLogin';
-import { AdminLogin } from './AdminLogin';
+import { UserLogin } from './user-login/UserLogin';
+import { AdminLogin } from './admin-login/AdminLogin';
 
 export const LoginContainer: React.FC = () => {
     const [isUserLogin, setIsUserLogin] = useState(true);
@@ -10,14 +10,18 @@ export const LoginContainer: React.FC = () => {
     };
 
     return (
-        <div className="login-container">
-            <div className="toggle-buttons">
+        /*<div >
+            <div>
                 <button onClick={toggleLogin}>
                     {isUserLogin ? "Switch to Admin Login" : "Switch to User Login"}
                 </button>
             </div>
             {isUserLogin ? <UserLogin /> : <AdminLogin />}
-        </div>
+        </div>*/
+
+        <>
+        <UserLogin></UserLogin>
+        </>
     );
 };
 

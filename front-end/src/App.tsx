@@ -1,17 +1,21 @@
-import React from 'react';
 import './App.css';
 import { Temp } from './components/Temp';
-import { LoginContainer } from './components/LoginComponents/LoginContainer';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { LoginContainer } from './components/login-components/LoginContainer';
+import { Navigate, Route, Routes } from 'react-router-dom';
+
+import { useAuth } from './contexts/AuthContext';
+
 function App() {
+  const { token } = useAuth();
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginContainer />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+
+      <Routes>
+        <Route path="/" element={<LoginContainer />} />
+        <Route path="/temp" element={token ? <Temp /> : <Navigate to="/" />} />
+      </Routes>
+
+    </div >
   );
 }
 
