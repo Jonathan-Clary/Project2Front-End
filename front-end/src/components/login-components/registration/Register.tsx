@@ -51,6 +51,8 @@ export const Register: React.FC = () => {
                         <Button type="submit" className=" mb-2" variant ="primary"> Log in</Button>
                         <Button type = "button" className=" mb-2" variant ="primary">Register</Button>
                     </div>
+
+                  
                     
                 </Form>
 
