@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button, Card, Col, Container, FloatingLabel, Form, FormControl, Row } from "react-bootstrap"
+import { Button, Card, Container, FloatingLabel, Form, FormControl } from "react-bootstrap"
 import './Register.css'
 import DOMPurify from 'dompurify';
 import { isAxiosError } from "axios";
