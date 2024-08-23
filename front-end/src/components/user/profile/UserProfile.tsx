@@ -1,14 +1,13 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Container, Card, Col, Row, Form, Button, Spinner, Toast } from "react-bootstrap";
 // import { useNavigate } from "react-router-dom";
 import "./UserProfile.css"
-import axiosInstance from "../../../services/AxiosInstance";
 import { useAuth } from "../../../contexts/AuthContext";
+import createAxiosInstance from "../../../services/AxiosInstance";
 
 export default function UserProfile(){
-    const {user} = useAuth();
-
+    const {user, token} = useAuth();
+    const axiosInstance = createAxiosInstance(token);
     const [userId, setUserId] = useState(-1);
     const [message, setMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");

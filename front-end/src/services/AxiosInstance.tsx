@@ -1,12 +1,16 @@
 import axios from "axios";
 
-const axiosInstance = axios.create({
-    baseURL: "http://localhost:8080/",
+const AxiosInstance = (token: string | null) => {
+  const axiosInstance = axios.create({
+    baseURL: 'http://localhost:8080/',
     withCredentials: true,
     headers: {
       'Content-Type': 'application/json',
-      // jwt token here? 'Authorization': `Bearer ${bring in auth context token item here}
+      'Authorization': token ? `Bearer ${token}` : '',
     },
   });
 
-export default axiosInstance;
+  return axiosInstance;
+};
+
+export default AxiosInstance;

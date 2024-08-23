@@ -2,9 +2,9 @@ import { useState } from "react"
 import { Button, Card, Col, Container, FloatingLabel, Form, FormControl, Row } from "react-bootstrap"
 import './Register.css'
 import DOMPurify from 'dompurify';
-import axiosInstance from "../../../services/AxiosInstance";
 import { isAxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
+import createAxiosInstance from "../../../services/AxiosInstance";
 
 type FormData = {
     email: string,
@@ -24,6 +24,7 @@ type FormErrors = {
 
 export const Register: React.FC = () => {
     const navigate = useNavigate();
+    const axiosInstance = createAxiosInstance(null);
     const [error, setError] = useState<string | null>(null); // backend errors
     const [errors, setErrors] = useState<FormErrors>({}); // frontend errors
     const [formData, setFormData] = useState<FormData>({

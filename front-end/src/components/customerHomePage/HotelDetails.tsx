@@ -3,21 +3,24 @@ import { Card, Carousel, CarouselItem, Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { HotelInterface } from "../../interfaces/HotelInterface";
-import axios from "axios";
+import createAxiosInstance from "../../services/AxiosInstance";
+import { useAuth } from "../../contexts/AuthContext";
 
 function HotelDetails(hotels: HotelInterface) {
   const [show, setShow] = useState(false);
-
+  const { user, token } = useAuth();
+  const axiosInstance = createAxiosInstance(token);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const favorite = async () =>{
-      const response = await axios.post(
-        " http://localhost:8080/favorite",
+      const response = await axiosInstance.post(
+        "/favorite",
         {
           dateAdded : new Date(),
-          userId : 1,
+          userId : user?.userId,
           hotelId : hotels.hotelId
         }
+        
       );
   }
   return (

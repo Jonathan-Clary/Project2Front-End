@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import axiosInstance from "../services/AxiosInstance";
+
 import { useNavigate } from "react-router-dom";
+import createAxiosInstance from "../services/AxiosInstance";
 
 // local interface in the event for context only (global interface will most likely change)
 interface User {
@@ -22,7 +23,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true); // loading state to ensure token is set so every refresh will not return to login page.
     const navigate = useNavigate();
-    
+    const axiosInstance = createAxiosInstance(token);
 
 
     // Refresh check local storage for token and reassigned to ensure token loss does not occur
@@ -43,15 +44,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const login = async (email: string, password: string) => {
         try {
+            
             const response = await axiosInstance.post('/auth/login', { email, password });
             const { token, userId, email: userEmail }: { token: string; userId: number, email: string } = response.data;
             setToken(token);
             const user: User = { userId, email: userEmail};
             localStorage.setItem('token', token); // storing token in local storage (user browser temp storage)
-            // Navigating to temp comp add conditional to nav to admin or user??
+            setUser(user);
             navigate('/');
             console.log('login successful');
-            console.log(user)
            // console.log(response.data)
         } catch (error) {
             console.error('Login Failed: ', error);
