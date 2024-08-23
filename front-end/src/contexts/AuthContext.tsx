@@ -44,14 +44,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const login = async (email: string, password: string) => {
         try {
             const response = await axiosInstance.post('/auth/login', { email, password });
-            const { token, user }: { token: string; user: User } = response.data;
+            const { token, userId, email: userEmail }: { token: string; userId: number, email: string } = response.data;
             setToken(token);
-            setUser(user);
+            const user: User = { userId, email: userEmail};
             localStorage.setItem('token', token); // storing token in local storage (user browser temp storage)
             // Navigating to temp comp add conditional to nav to admin or user??
             navigate('/');
             console.log('login successful');
-           // console.log(token)
+            console.log(user)
            // console.log(response.data)
         } catch (error) {
             console.error('Login Failed: ', error);

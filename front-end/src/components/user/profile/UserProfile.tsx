@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { Container, Card, Col, Row, Form, Button, Spinner, Toast } from "react-bootstrap";
 // import { useNavigate } from "react-router-dom";
 import "./UserProfile.css"
+import axiosInstance from "../../../services/AxiosInstance";
+import { useAuth } from "../../../contexts/AuthContext";
 
 export default function UserProfile(){
-
-    // temp
-    const __api_url = "http://localhost:8080"
+    const {user} = useAuth();
 
     const [userId, setUserId] = useState(-1);
     const [message, setMessage] = useState("");
@@ -27,12 +27,7 @@ export default function UserProfile(){
 
     // const navigate = useNavigate();
 
-    // const token = localStorage.getItem("token");
-    const api = axios.create({
-        baseURL: __api_url,
-        // headers: {'Authorization': 'Bearer '+token}
-    });
-
+   
     const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,5}$/g;
 
     function update_info(){
@@ -50,7 +45,7 @@ export default function UserProfile(){
         else
             body = body1;
         
-        api.patch('/user', body)
+        axiosInstance.patch('/user', body)
             .then(function (response) {
                 setSuccessMessage("Updated Successfully");
             })
@@ -122,9 +117,9 @@ export default function UserProfile(){
         else
             setDisableBtn(true);
 
-        if(userId < 0){
+        if(user !== null){
             let user_from_context_api = {"userId":1, "firstName":"fname", "lastName":"lname", "email":"test@test.test"}
-            setUserId(user_from_context_api.userId)
+            setUserId(user!.userId)
             setFirstName(user_from_context_api.firstName);
             setLastName(user_from_context_api.lastName);
             setEmail(user_from_context_api.email);
@@ -177,7 +172,7 @@ export default function UserProfile(){
                             <div className="err_msg">{emailMsg}</div>
                             <Form.Group className="mb-3">
                                 <Form.FloatingLabel label="Email">
-                                <Form.Control name="email" id="email" type="email" placeholder="Email" value={email} onChange={validate} />
+                                <Form.Control name="email" id="email" type="email" placeholder={user?.email} value={email} onChange={validate} readOnly />
                                 </Form.FloatingLabel>
                             </Form.Group>
                         </Row>

@@ -8,6 +8,7 @@ import { Register } from './components/login-components/registration/Register';
 import { Navigation } from './components/navigation/Navigation';
 import UserProfile from './components/user/profile/UserProfile';
 import { CustomerHomePage } from './components/customerHomePage/CustomerHomePage';
+import { BookingHistory } from './components/BookingHistory';
 
 function App() {
   const { token } = useAuth();
@@ -21,6 +22,7 @@ function App() {
         <Route path="/register" element={<Register/>} /> 
         <Route path="/" element={token ? <CustomerHomePage /> : <Navigate to="/login" />} />
         <Route path="/profile" element={token ? <UserProfile /> : <Navigate to="/login" />} />
+        <Route path="/booking/history" element={token ? <BookingHistory /> : <Navigate to="/login" />} />
       </Routes>
 
     </div >
