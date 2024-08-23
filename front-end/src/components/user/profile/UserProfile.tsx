@@ -149,8 +149,8 @@ export default function UserProfile(){
     
 
     return(
-        <Container style={{width:'30vw'}}>
-            <Card className="border border-light-subtle rounded-3 shadow-sm">
+        <Container className="mt-5" style={{width:'30vw'}}>
+            <Card className="border border-light-subtle rounded-3 shadow">
                 <Card.Body className="p-3 p-md-4 p-xl-5 q">
                     <h2 className="fs-6 fw-normal text-center text-secondary mb-4">Update Account Info</h2>
                     <Col className="gy-2">

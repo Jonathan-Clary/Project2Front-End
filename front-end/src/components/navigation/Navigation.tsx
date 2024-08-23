@@ -29,7 +29,7 @@ export const Navigation: React.FC = () => {
                     <i className="bi bi-calendar-event fs-3 me-2"></i>
                     <span className="fs-5">Bookings</span>
                 </NavDropdown.Item>
-                <NavDropdown.Item>
+                <NavDropdown.Item onClick={() => navigate("/profile")}>
                     <i className="bi bi-person-circle fs-3 me-2"></i>
                     <span className="fs-5">Profile</span>
                 </NavDropdown.Item>
@@ -63,7 +63,7 @@ export const Navigation: React.FC = () => {
                     <i className="bi bi-calendar-event me-2"></i>
                     Bookings
                   </NavDropdown.Item>
-                  <NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => navigate("/profile")}>
                     <i className="bi bi-person-circle me-2"></i>
                     Profile
                   </NavDropdown.Item>

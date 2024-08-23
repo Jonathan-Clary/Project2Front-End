@@ -1,7 +1,3 @@
-body {
-    height: 100vh!important;
-    background-color: aliceblue !important;
-}
 
 .login-card-header {
     background-image: url('/public/images/login-page-image.jpg');
