@@ -3,19 +3,29 @@ import { Card, Carousel, CarouselItem, Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { HotelInterface } from "../../interfaces/HotelInterface";
+import axios from "axios";
 
 function HotelDetails(hotels: HotelInterface) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const favorite = async () =>{
+      const response = await axios.post(
+        " http://localhost:8080/favorite",
+        {
+          dateAdded : new Date(),
+          userId : 1,
+          hotelId : hotels.hotelId
+        }
+      );
+  }
   return (
     <>
       <Button className="" variant="primary" onClick={handleShow}>
         More Details
       </Button>
-
+      
       <Modal
         show={show}
         onHide={handleClose}
@@ -56,6 +66,9 @@ function HotelDetails(hotels: HotelInterface) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
+          <Button className="" variant="primary" onClick={favorite}>
+        Favorite
+      </Button>
           <Button variant="primary">Book Hotel</Button>
         </Modal.Footer>
       </Modal>
