@@ -47,7 +47,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             const { token, user }: { token: string; user: User } = response.data;
             setToken(token);
             setUser(user);
-            localStorage.setItem('token', token);
+            localStorage.setItem('token', token); // storing token in local storage (user browser temp storage)
             // Navigating to temp comp add conditional to nav to admin or user??
             navigate('/');
             console.log('login successful');
@@ -72,7 +72,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     );
 };
 
-export const  useAuth = (): AuthContextType => {
+// Think of this as our custom useState() method but instead of useState we are using useAuth to access items from this context. 
+export const useAuth = (): AuthContextType => {
     const context = useContext(AuthContext);
     if (context === undefined) {
         throw new Error('useAuth must be used with Auth Provider');

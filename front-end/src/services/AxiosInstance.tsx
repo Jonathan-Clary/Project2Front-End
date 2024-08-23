@@ -5,6 +5,7 @@ const axiosInstance = axios.create({
     withCredentials: true,
     headers: {
       'Content-Type': 'application/json',
+      // jwt token here? 'Authorization': `Bearer ${bring in auth context token item here}
     },
   });
 
