@@ -27,7 +27,7 @@ function HotelDetails(hotels: HotelInterface) {
         </Modal.Header>
         <Modal.Body>
           <Card.Body>
-            <Card.Text>{hotels.hotelId} Description goes here</Card.Text>
+            <Card.Text>{hotels.address} Description goes here</Card.Text>
             <Container className="d-flex flex-fill flex-wrap  justify-content-center">
               <Carousel variant="dark">
                 <CarouselItem className="d-flex">

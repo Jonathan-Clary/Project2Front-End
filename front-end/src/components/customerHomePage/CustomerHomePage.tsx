@@ -5,13 +5,19 @@ import { HotelInterface } from "../../interfaces/HotelInterface";
 import Pagination from 'react-bootstrap/Pagination';
 import axios from "axios";
 import { useEffect, useState } from "react";
+import mockData from "./mockData.json"
 
 export const CustomerHomePage: React.FC = () => {
 
+const [data, setData] = useState<HotelInterface[]>([]);
 const [hotels, setHotels] = useState<HotelInterface[]>([])
   const getHotels = async () =>{
-  const response = await axios.get("localhost:8080/api/hotels/fetch-by-city")
+  const response = await axios.get(" http://44.211.44.18:8080/api/hotels/fetch-by-city")
   setHotels(response.data)
+  setData(mockData)
+}
+const getData = async () =>{
+  setData(mockData)
 }
 
   return (
@@ -22,14 +28,14 @@ const [hotels, setHotels] = useState<HotelInterface[]>([])
       <p>Space</p>
       <div className="Search">
         <p>Search Bar Here</p>
-        <button onClick={getHotels}>Go!</button>
+        <button onClick={getData}>Go!</button>
         <p>Search Results Here</p>
         <Container className="d-flex flex-wrap bg-primary justify-content-center">
-          <CardComponent></CardComponent>
-          <CardComponent></CardComponent>
-          <CardComponent></CardComponent>
-          <CardComponent></CardComponent>
-          <CardComponent></CardComponent>
+        
+            {data.map((hotels, index) =>(
+              <CardComponent {...hotels} className="w-25"></CardComponent>
+            ))}
+        
         </Container>
       </div>
       <div className="Trending overflow-auto">
