@@ -5,6 +5,10 @@ import { useAuth } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 export const UserLogin: React.FC = () => {
+
+    /* TODO: INPUT VALIDATION (DOM PURIFY?) */
+
+
     /* const [user, setUser] = useState({ username: "", password: "" });
      const navigate = useNavigate();
  

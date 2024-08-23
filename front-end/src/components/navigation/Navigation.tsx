@@ -1,8 +1,10 @@
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import "../navigation/Navigation.css"
+import { useAuth } from "../../contexts/AuthContext"
 export const Navigation: React.FC = () => {
     const navigate = useNavigate()
+    const { logout } = useAuth();
 
     return (
         <Navbar expand="lg" className="bg-primary">
@@ -35,7 +37,7 @@ export const Navigation: React.FC = () => {
                     <i className="bi bi-headset fs-3 me-2"></i>
                     <span className="fs-5">Help and Support</span>
                 </NavDropdown.Item>
-                <NavDropdown.Item>
+                <NavDropdown.Item onClick={logout}>
                     <i className="bi bi-box-arrow-in-left fs-3 me-2"></i>
                     <span className="fs-5">Log Out</span>
                 </NavDropdown.Item>
@@ -69,7 +71,7 @@ export const Navigation: React.FC = () => {
                     <i className="bi bi-headset me-2"></i>
                     Help and Support
                   </NavDropdown.Item>
-                  <NavDropdown.Item>
+                  <NavDropdown.Item onClick={logout}>
                     <i className="bi bi-box-arrow-in-left me-2"></i>
                     Log Out
                   </NavDropdown.Item>

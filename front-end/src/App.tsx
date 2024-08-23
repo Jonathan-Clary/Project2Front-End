@@ -17,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginContainer />} />
         <Route path="/temp" element={token ? <Temp /> : <Navigate to="/" />} />
-        <Route path="/register" element={<Register/>} /> //
+        <Route path="/register" element={<Register/>} /> 
       </Routes>
 
     </div >
