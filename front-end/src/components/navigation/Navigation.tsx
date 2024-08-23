@@ -10,7 +10,7 @@ export const Navigation: React.FC = () => {
         <Navbar expand="lg" className="bg-primary">
           <Container className="d-flex justify-content-between">
             {/* Logo on the left */}
-            <Navbar.Brand onClick={() => navigate('/')}>
+            <Navbar.Brand className="navLogo" onClick={() => navigate('/')}>
               Logo 
             </Navbar.Brand>
     
@@ -25,7 +25,7 @@ export const Navigation: React.FC = () => {
                     <i className="bi bi-heart me-2 fs-3"></i>
                     <span className="fs-5">Favorites</span>
                 </NavDropdown.Item>
-                <NavDropdown.Item onClick={() => navigate("/")}>
+                <NavDropdown.Item onClick={() => navigate("/booking/history")}>
                     <i className="bi bi-calendar-event fs-3 me-2"></i>
                     <span className="fs-5">Bookings</span>
                 </NavDropdown.Item>
@@ -59,7 +59,7 @@ export const Navigation: React.FC = () => {
                   } 
                   id="basic-nav-dropdown" className="no-arrow ms-5"
                 >
-                  <NavDropdown.Item onClick={() => navigate("/")}>
+                  <NavDropdown.Item onClick={() => navigate("/booking/history")}>
                     <i className="bi bi-calendar-event me-2"></i>
                     Bookings
                   </NavDropdown.Item>
