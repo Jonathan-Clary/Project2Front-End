@@ -15,8 +15,8 @@ function App() {
       {token != null ? <Navigation/> : <></>}
 
       <Routes>
-        <Route path="/" element={<LoginContainer />} />
-        <Route path="/temp" element={token ? <Temp /> : <Navigate to="/" />} />
+        <Route path="/login" element={<LoginContainer />} />
+        <Route path="/" element={token ? <Temp /> : <Navigate to="/login" />} />
         <Route path="/register" element={<Register/>} /> 
       </Routes>
 

@@ -49,7 +49,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             setUser(user);
             localStorage.setItem('token', token);
             // Navigating to temp comp add conditional to nav to admin or user??
-            navigate('/temp');
+            navigate('/');
             console.log('login successful');
            // console.log(token)
            // console.log(response.data)

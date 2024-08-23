@@ -134,7 +134,7 @@ export const Register: React.FC = () => {
             const response = await axiosInstance.post('/user/register', formData);
             if (response.data) {
                 // Add global toast here **
-                navigate('/');
+                navigate('/login');
             }
         } catch (error) {
             if (isAxiosError(error)) {
@@ -232,7 +232,7 @@ export const Register: React.FC = () => {
                     {error && <div className="alert alert-danger">{error}</div>}
 
                     <div className="d-flex justify-content-between w-50">
-                        <Button className=" mb-2" variant="secondary" onClick={() => navigate('/')}> Back</Button>
+                        <Button className=" mb-2" variant="secondary" onClick={() => navigate('/login')}> Back</Button>
                         <Button type="submit" className=" mb-2" variant="primary"> Register</Button>
                     </div>
                 </Form>
