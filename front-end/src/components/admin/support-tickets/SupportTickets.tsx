@@ -145,9 +145,11 @@ export const SupportTickets: React.FC = () => {
     const [typeFilter, setTypeFilter] = useState('Type');
     const [typeFilterBtnTitle, setTypeFilterBtnTitle] = useState('Type');
     const [statusTab, setStatusTab] = useState('Pending');
+   
+    const [searchTerm, setSearchTerm] = useState<string>(''); // search box input state. 
+    const [reset, setReset] = useState(false);
 
-
-    const handleTabFilters = () => {
+    const handleTabsAndFilters = () => {
         setTypeFilterBtnTitle(typeFilter);
         let filtered = mockData;
 
@@ -162,49 +164,34 @@ export const SupportTickets: React.FC = () => {
         if (statusTab) {
             filtered = filtered.filter(data => data.status.toUpperCase() === statusTab.toUpperCase());
         }
+
+        if (searchTerm) {
+            filtered = filtered.filter(data => data.description.toUpperCase().includes(searchTerm.toUpperCase().trim()) || data.supportTicketId?.toFixed().startsWith(searchTerm.trim()) );
+        }
+
         setFilterData(filtered);
     }
 
+    // RESET FILTERS
+    const handleResetFilters = () => {
+        setTypeFilter('Type');
+        setSearchTerm('');
+        setReset(true);
+        setTimeout(() => setReset(false), 100);
+    }
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
+    }
+    
+
+
     useEffect(() => {
-        handleTabFilters();
-    }, [typeFilter, statusTab])
+        handleTabsAndFilters();
+    }, [typeFilter, statusTab, searchTerm])
 
     return (
         <Container>
-            {/* <Card className='mt-5'>
-                <Card.Header>
-                    <Nav justify variant="tabs" defaultActiveKey="#General">
-                        <Nav.Item onClick={() => setTypeFilter('General')}>
-                            <Nav.Link href="#General">General</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item onClick={() => setTypeFilter('Technical_Issues')}>
-                            <Nav.Link href="#Technical_Issues">Technical Issues</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item onClick={() => setTypeFilter('Information')}>
-                            <Nav.Link href="#Information">Information</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item onClick={() => setTypeFilter('Feedback')}>
-                            <Nav.Link href="#Feedback">Feedback</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item onClick={() => setTypeFilter('Privacy')}>
-                            <Nav.Link href="#Privacy">Privacy</Nav.Link>
-                        </Nav.Item>
-                    </Nav>
-                </Card.Header>
-                <Card.Body>
-                    <Card.Title>Support Tickets</Card.Title>
-                    <SupportTicketTable columnNames={["ID", "Type", "Status", "Description", "Creation Date"]} data={filterData} />
-
-                     PAGINATION 
-
-                    <Pagination className="justify-content-end">
-                        <Pagination.Prev>Previous</Pagination.Prev>
-                       
-                        <Pagination.Next>Next</Pagination.Next>
-                    </Pagination>
-                </Card.Body>
-            </Card> */}
-
             <Card className='mt-5 shadow'>
                 <Card.Header>
                     <Nav justify variant="tabs" defaultActiveKey="#pending-tickets">
@@ -222,30 +209,32 @@ export const SupportTickets: React.FC = () => {
                     <Card.Title className='text-center m-4'>Support Tickets</Card.Title>
                     <Card className='card text-center'>
 
-                        <Card.Header className=''>
+                        <Card.Header>
                             <ButtonToolbar aria-label="Toolbar with Button groups" className='d-flex justify-content-between'>
                                 <InputGroup>
                                     <InputGroup.Text id="btnGroupAddon"><i className="bi bi-search"></i></InputGroup.Text>
                                     <Form.Control
                                         type="text"
                                         placeholder="search.."
+                                        onChange={handleSearch}
+                                        value={searchTerm}
                                     />
                                 </InputGroup>
                                 <ButtonGroup className="me-2" aria-label="First group">
                                     <DropdownButton as={ButtonGroup} title={typeFilterBtnTitle} id="bg-nested-dropdown">
                                         <Dropdown.Item onClick={() => setTypeFilter('General')}>General</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => setTypeFilter('Technical Issues')}>Technical Issue</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => setTypeFilter('Technical_Issues')}>Technical Issue</Dropdown.Item>
                                         <Dropdown.Item onClick={() => setTypeFilter('Information')}>Information</Dropdown.Item>
                                         <Dropdown.Item onClick={() => setTypeFilter('Feedback')}>Feedback</Dropdown.Item>
                                         <Dropdown.Item onClick={() => setTypeFilter('Privacy')}>Privacy</Dropdown.Item>
                                     </DropdownButton>
-                                    <Button variant='secondary'><i className="bi bi-arrow-clockwise"></i></Button>
+                                    <Button variant='secondary' onClick={() => handleResetFilters()}><i className="bi bi-arrow-clockwise"></i></Button>
                                 </ButtonGroup>
                             </ButtonToolbar>
                         </Card.Header>
 
                         <Card.Body>
-                            <SupportTicketTable columnNames={["ID", "Type", "Status", "Description", "Creation Date"]} data={filterData} />
+                            <SupportTicketTable data={filterData} reset={reset}/>
                             {/* PAGINATION */}
                             <Pagination className="justify-content-end">
                                 <Pagination.Prev>Previous</Pagination.Prev>
