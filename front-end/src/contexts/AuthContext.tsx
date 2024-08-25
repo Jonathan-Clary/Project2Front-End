@@ -28,11 +28,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     // Refresh check local storage for token and reassigned to ensure token loss does not occur
     useEffect(() => {
+        const storedUserId = +localStorage.getItem('userId')!;
+        const storedEmail = localStorage.getItem('email');
+        const user: User = {userId: storedUserId, email: storedEmail!}
+        setUser(user)
         const storedJwtToken = localStorage.getItem('token');
         if (storedJwtToken) {
             setToken(storedJwtToken);
         }
+       
         setLoading(false);
+       
     }, []);
     
     // Render loading text in the event that a slow load occurs. 
@@ -49,7 +55,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             const { token, userId, email: userEmail }: { token: string; userId: number, email: string } = response.data;
             setToken(token);
             const user: User = { userId, email: userEmail};
+           // console.log(user)
             localStorage.setItem('token', token); // storing token in local storage (user browser temp storage)
+            localStorage.setItem('userId', userId.toString());
+            localStorage.setItem('email', userEmail.toString());
             setUser(user);
             navigate('/');
             console.log('login successful');
@@ -63,6 +72,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setToken(null);
         setUser(null);
         localStorage.removeItem('token');
+        localStorage.removeItem('userId');
     };
 
 
