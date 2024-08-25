@@ -13,20 +13,24 @@ import Pagination from "react-bootstrap/Pagination";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import mockData from "./mockData.json";
+import { useAuth } from "../../contexts/AuthContext";
+import createAxiosInstance from "../../services/AxiosInstance";
 
 export const CustomerHomePage: React.FC = () => {
   const [data, setData] = useState<HotelInterface[]>([]);
   const [hotels, setHotels] = useState<HotelInterface[]>([]);
+  const { user, token } = useAuth();
+  const axiosInstance = createAxiosInstance(token);
   const getHotels = async () => {
-    const response = await axios.get(
-      " http://44.211.44.18:8080/api/hotels/fetch-by-city"
+    const response = await axiosInstance.get(
+      " /api/hotels/fetch-by-city"
     );
     setHotels(response.data);
   };
   const [favorites, setFavorites] = useState<HotelInterface[]>([]);
   const getFavorites = async () => {
-    const response = await axios.get(
-      " http://localhost:8080/favorite"
+    const response = await axiosInstance.get(
+      " /favorite"
     );
     setFavorites(response.data)
   };

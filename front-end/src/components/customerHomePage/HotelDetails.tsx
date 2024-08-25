@@ -44,7 +44,7 @@ function HotelDetails(hotels: HotelInterface) {
             <Container className="d-flex flex-fill flex-wrap  justify-content-center">
               <Carousel variant="dark">
                 <CarouselItem className="d-flex">
-                  <Card.Img variant="top" src="logo192.png" />
+                  <Card.Img variant="top" src="/images/HotelPlaceholder.jpg" />
                 </CarouselItem>
                 <CarouselItem className="d-flex">
                   <Card.Img variant="top" src="logo192.png" />
@@ -61,6 +61,10 @@ function HotelDetails(hotels: HotelInterface) {
             </div>
             <div className="d-flex justify-content-between">
                 <div>Check-In Date</div>
+                <input type="date" name="" id="" />
+            </div>
+            <div className="d-flex justify-content-between">
+                <div>Check-Out Date</div>
                 <input type="date" name="" id="" />
             </div>
           </Card.Body>
