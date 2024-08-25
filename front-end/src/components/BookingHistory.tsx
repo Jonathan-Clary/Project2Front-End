@@ -1,20 +1,29 @@
 import {Button, ButtonToolbar, Card, CardHeader, Col, Container, FormControl, FormGroup, InputGroup, Row} from "react-bootstrap"
 import { BookingCard } from "./BookingCard"
 import { BookingInterface } from "../interfaces/BookingInterface"
-import { useState } from "react"
-
+import { useEffect, useState } from "react"
+import { useAuth } from "../contexts/AuthContext"
+import createAxiosInstance from "../services/AxiosInstance"
 
 
 export const BookingHistory: React.FC = () => {
-
+    const{token, user} = useAuth()
+    const axiosInstance = createAxiosInstance(token)
     const[bookingHistoryData, setHistoryData] = useState<BookingInterface[]>([])
 
    
 
     const getAllBookingHistory = async () => {
-        
+        try{
+            const response = await axiosInstance.get(`/stays/user/${user?.userId}`)
+            console.log(response)
+        } catch(error){
+            console.log("error occurred")
+        }
     }
-
+    useEffect(() => {
+        getAllBookingHistory()
+    },[])
 
 
     return(
