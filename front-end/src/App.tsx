@@ -1,5 +1,4 @@
 import './App.css';
-import { Temp } from './components/Temp';
 import { LoginContainer } from './components/login-components/LoginContainer';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
@@ -9,6 +8,8 @@ import { Navigation } from './components/navigation/Navigation';
 import UserProfile from './components/user/profile/UserProfile';
 import { CustomerHomePage } from './components/customerHomePage/CustomerHomePage';
 import { BookingHistory } from './components/BookingHistory';
+import { TempLogin } from './components/login-components/user-login/temp';
+
 
 function App() {
   const { token } = useAuth();
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={token ? <CustomerHomePage /> : <Navigate to="/login" />} />
         <Route path="/profile" element={token ? <UserProfile /> : <Navigate to="/login" />} />
         <Route path="/booking/history" element={token ? <BookingHistory /> : <Navigate to="/login" />} />
+        <Route path="/temp" element={<TempLogin/>}/>
       </Routes>
 
     </div >
