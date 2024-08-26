@@ -17,20 +17,21 @@ import { useAuth } from "../../contexts/AuthContext";
 import createAxiosInstance from "../../services/AxiosInstance";
 
 export const CustomerHomePage: React.FC = () => {
+  
   const [data, setData] = useState<HotelInterface[]>([]);
   const [hotels, setHotels] = useState<HotelInterface[]>([]);
   const { user, token } = useAuth();
   const axiosInstance = createAxiosInstance(token);
   const getHotels = async () => {
     const response = await axiosInstance.get(
-      " /api/hotels/fetch-by-city"
+      " /api/hotels/fetch-by-city" + user.userId
     );
     setHotels(response.data);
   };
   const [favorites, setFavorites] = useState<HotelInterface[]>([]);
   const getFavorites = async () => {
     const response = await axiosInstance.get(
-      " /favorite"
+      " /favorite/user="  
     );
     setFavorites(response.data)
   };
@@ -40,10 +41,6 @@ export const CustomerHomePage: React.FC = () => {
 
   return (
     <div className="Page">
-      <div className="NavBar">
-        <p>Insert Nav Bar here</p>
-      </div>
-      <p>Space</p>
       <div className="Search">
         <p>Search Bar Here</p>
         <button onClick={getData}>Go!</button>
@@ -75,10 +72,6 @@ export const CustomerHomePage: React.FC = () => {
             </CarouselItem>
           </Carousel>
         </Container>
-      </div>
-      <p>Space</p>
-      <div className="Footer bg-info">
-        <footer>Insert Footer Here</footer>
       </div>
     </div>
   );

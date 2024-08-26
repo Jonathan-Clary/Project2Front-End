@@ -42,15 +42,15 @@ function HotelDetails(hotels: HotelInterface) {
           <Card.Body>
             <Card.Text>{hotels.address} Description goes here</Card.Text>
             <Container className="d-flex flex-fill flex-wrap  justify-content-center">
-              <Carousel variant="dark">
-                <CarouselItem className="d-flex">
+              <Carousel >
+                <CarouselItem>
                   <Card.Img variant="top" src="/images/HotelPlaceholder.jpg" />
                 </CarouselItem>
-                <CarouselItem className="d-flex">
-                  <Card.Img variant="top" src="logo192.png" />
+                <CarouselItem>
+                  <Card.Img variant="top" src="/images/HotelPlaceholder.jpg" />
                 </CarouselItem>
-                <CarouselItem className="d-flex">
-                  <Card.Img variant="top" src="logo192.png" />
+                <CarouselItem>
+                  <Card.Img variant="top" src="/images/login-page-image.jpg" />
                 </CarouselItem>
               </Carousel>
             </Container>
