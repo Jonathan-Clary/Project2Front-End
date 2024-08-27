@@ -5,11 +5,12 @@ import { UserInterface } from "./UserInterface";
 export interface BookingInterface{
 
     stayId: number,
-    User: UserInterface,
-    userId: number, 
-    Hotel: HotelInterface,
+    user: UserInterface,
+    hotel: HotelInterface,
     hotelId: number,
     bookedDate: "",
     endDate: ""
 
 }
+
+//made User and Hotel lowercase and removed UserId to align with database
