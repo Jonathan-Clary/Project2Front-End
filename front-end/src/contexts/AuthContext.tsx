@@ -5,7 +5,7 @@ import createAxiosInstance from "../services/AxiosInstance";
 
 // local interface in the event for context only (global interface will most likely change)
 interface User {
-    userId: number;
+    userId: string;
     email: string;
 }
 
