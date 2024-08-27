@@ -9,10 +9,8 @@ import createAxiosInstance from "../services/AxiosInstance"
 export const BookingHistory: React.FC = () => {
     const{token, user} = useAuth()
     const axiosInstance = createAxiosInstance(token)
-    const[bookingHistoryData, setHistoryData] = useState<BookingInterface[]>([])
     const[upcomingBookingData, setUpcomingBooking] = useState<BookingInterface[]>([])
     const[pastBookingData, setPastBooking] = useState<BookingInterface[]>([])
-    const [data, setData] = useState<BookingInterface[]>([]);
 
 
     //Getting the current date. Have to add 1 to the month since janurary is 0 
@@ -49,12 +47,8 @@ export const BookingHistory: React.FC = () => {
     //Method for getting all booking history and filtering if upcoming or past booking
     const getAllBookingHistory = async () => {
         try{
-            const response = await axiosInstance.get("/stays/user/" + user?.userId)
-            console.log("all bookings" , response)
-            setHistoryData(response.data)
-            console.log("booking history", response.data)
-            const {upcomingBookings, pastBookings} = filterBookingHistory(bookingHistoryData, current)
-            
+            const response = await axiosInstance.get("/stays/user/" + user?.userId)            
+            const {upcomingBookings, pastBookings} = filterBookingHistory(response.data, current)
             setUpcomingBooking(upcomingBookings)
             console.log(upcomingBookingData, "upcoming bookings")
             setPastBooking(pastBookings)
@@ -77,8 +71,8 @@ export const BookingHistory: React.FC = () => {
 
 
     return(
-        <div style={{background:"blue"}} className="min-vh-100 w-100 p-5">
-            <Container className="mt-5 mb-5 p-2" style={{background:"red"}}>
+        <div style={{background:"white"}} className="min-vh-100 w-100 p-5">
+            <Container className="shadow mt-5 mb-5 p-2" style={{background:"white"}}>
                 {/*Add functionality so if no upcoming bookings then display no upcoming bookings */}
                 <h3 className="mb-4">Upcoming Booking </h3>
                 {upcomingBookingData.length === 0 ? <p>No Upcoming Trips</p> :
@@ -88,11 +82,11 @@ export const BookingHistory: React.FC = () => {
                 }
                 
             </Container>
-            <Container className="mt-5 mb-5 p-2" style={{background:"red"}}>
+            <Container className="shadow mt-5 mb-5 p-2" style={{background:"white"}}>
                 <h3 className="mb-5">Past Booking</h3>
                 {/*Search bar for past bookings */}
                 <ButtonToolbar aria-label="Button toolbar" className="d-flex justify-content-between w-100" >
-                    <InputGroup className="mb-3 w-100" style={{backgroundColor:"gray"}}>
+                    <InputGroup className="mb-3 w-100" style={{backgroundColor:"#f5f5f5"}}>
                         <InputGroup.Text id="Button-Search"><i className="bi bi-search"></i></InputGroup.Text>
                         <FormControl
                             className="w-25"

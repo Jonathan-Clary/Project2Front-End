@@ -28,7 +28,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     // Refresh check local storage for token and reassigned to ensure token loss does not occur
     useEffect(() => {
-        const storedUserId = +localStorage.getItem('userId')!;
+        const storedUserId = localStorage.getItem('userId')!;
+        console.log("storedUserId", storedUserId)
         const storedEmail = localStorage.getItem('email');
         const user: User = {userId: storedUserId, email: storedEmail!}
         setUser(user)
@@ -52,12 +53,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         try {
             
             const response = await axiosInstance.post('/auth/login', { email, password });
-            const { token, userId, email: userEmail }: { token: string; userId: number, email: string } = response.data;
+            const { token, userId, email: userEmail }: { token: string; userId: string, email: string } = response.data;
             setToken(token);
+            //console.log("token", token)
             const user: User = { userId, email: userEmail};
-           // console.log(user)
+            //console.log(user)
             localStorage.setItem('token', token); // storing token in local storage (user browser temp storage)
             localStorage.setItem('userId', userId.toString());
+            console.log(userId)
             localStorage.setItem('email', userEmail.toString());
             setUser(user);
             navigate('/');

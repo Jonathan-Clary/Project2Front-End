@@ -10,6 +10,8 @@ import { CustomerHomePage } from './components/customerHomePage/CustomerHomePage
 import { BookingHistory } from './components/BookingHistory';
 import { TempLogin } from './components/login-components/user-login/temp';
 import { HelpCenterDashboard} from './components/SupportTickets/HelpCenterDashboard';
+import { ReviewSupportTickets } from './components/SupportTickets/ReviewSupportTickets';
+import { CustomerSupport } from './components/SupportTickets/CustomerSupport';
 
 function App() {
   const { token } = useAuth();
@@ -26,6 +28,8 @@ function App() {
         <Route path="/booking/history" element={token ? <BookingHistory /> : <Navigate to="/login" />} />
         <Route path="/temp" element={<TempLogin/>}/>
         <Route path="/user/help" element={ token? <HelpCenterDashboard/> : <Navigate to="/login"/>} />
+        <Route path="/user/tickets" element={token? <ReviewSupportTickets/>: <Navigate to ="/login"/>} />
+        <Route path ="/customer/support" element={token? < CustomerSupport/>: <Navigate to ="/login"/>} />  
       </Routes>
 
     </div >

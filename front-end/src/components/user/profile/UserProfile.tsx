@@ -8,7 +8,7 @@ import createAxiosInstance from "../../../services/AxiosInstance";
 export default function UserProfile(){
     const {user, token} = useAuth();
     const axiosInstance = createAxiosInstance(token);
-    const [userId, setUserId] = useState(-1);
+    const [userId, setUserId] = useState("");
     const [message, setMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -117,7 +117,7 @@ export default function UserProfile(){
             setDisableBtn(true);
 
         if(user !== null){
-            let user_from_context_api = {"userId":1, "firstName":"fname", "lastName":"lname", "email":"test@test.test"}
+            let user_from_context_api = {"userId":"userId", "firstName":"fname", "lastName":"lname", "email":"test@test.test"}
             setUserId(user!.userId)
             setFirstName(user_from_context_api.firstName);
             setLastName(user_from_context_api.lastName);
