@@ -9,7 +9,7 @@ import UserProfile from './components/user/profile/UserProfile';
 import { CustomerHomePage } from './components/customerHomePage/CustomerHomePage';
 import { BookingHistory } from './components/BookingHistory';
 import { TempLogin } from './components/login-components/user-login/temp';
-
+import { HelpCenterDashboard} from './components/SupportTickets/HelpCenterDashboard';
 
 function App() {
   const { token } = useAuth();
@@ -25,6 +25,7 @@ function App() {
         <Route path="/profile" element={token ? <UserProfile /> : <Navigate to="/login" />} />
         <Route path="/booking/history" element={token ? <BookingHistory /> : <Navigate to="/login" />} />
         <Route path="/temp" element={<TempLogin/>}/>
+        <Route path="/user/help" element={ token? <HelpCenterDashboard/> : <Navigate to="/login"/>} />
       </Routes>
 
     </div >
