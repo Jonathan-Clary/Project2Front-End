@@ -36,11 +36,11 @@ function HotelDetails(hotels: HotelInterface) {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>{hotels.hotelName}  Name Goes Here</Modal.Title>
+          <Modal.Title>{hotels.hotelName}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Card.Body>
-            <Card.Text>{hotels.address} Description goes here</Card.Text>
+            <Card.Text>{hotels.address}</Card.Text>
             <Container className="d-flex flex-fill flex-wrap  justify-content-center">
               <Carousel >
                 <CarouselItem>

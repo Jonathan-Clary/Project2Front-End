@@ -12,7 +12,7 @@ export const BookingHistory: React.FC = () => {
     const[bookingHistoryData, setHistoryData] = useState<BookingInterface[]>([])
     const[upcomingBookingData, setUpcomingBooking] = useState<BookingInterface[]>([])
     const[pastBookingData, setPastBooking] = useState<BookingInterface[]>([])
-    
+    const [data, setData] = useState<BookingInterface[]>([]);
 
 
     //Getting the current date. Have to add 1 to the month since janurary is 0 
@@ -25,17 +25,22 @@ export const BookingHistory: React.FC = () => {
         const pastBookings: BookingInterface[] = []
         allBookings.forEach((booking)=> {
             console.log("booking", booking)
-            const bookingstartDate = new Date(booking.bookedDate);
-
+            const bookingStartDate = new Date(booking.bookedDate);
+            console.log(bookingStartDate)
+            console.log(currentDate)
             //Getting rid of the time stamp
-            const bookingDateOnly = new Date(bookingstartDate.toDateString())
+            const bookingDateOnly = new Date(bookingStartDate.toDateString())
             const currentDateOnly = new Date(currentDate.toDateString())
-
+            console.log(bookingDateOnly)
+            console.log(currentDateOnly)
             //Filtering
             if(bookingDateOnly>currentDateOnly){
                 upcomingBookings.push(booking)
+                console.log("added to upcoming")
             } else{
                 pastBookings.push(booking)
+                console.log("added to past")
+                console.log(pastBookings)
             }
         })
         return {upcomingBookings, pastBookings}
@@ -51,10 +56,12 @@ export const BookingHistory: React.FC = () => {
             const {upcomingBookings, pastBookings} = filterBookingHistory(bookingHistoryData, current)
             
             setUpcomingBooking(upcomingBookings)
+            console.log(upcomingBookingData, "upcoming bookings")
             setPastBooking(pastBookings)
+            console.log(pastBookingData, "past bookings")
 
-            console.log("Upcoming Bookings: ", upcomingBookingData)
-            console.log("Past Booking: ", pastBookingData)
+            console.log("Upcoming Bookings: ", upcomingBookings)
+            console.log("Past Booking: ", pastBookings)
           
         } catch(error){
             console.log("error occurred")
@@ -75,9 +82,11 @@ export const BookingHistory: React.FC = () => {
                 {/*Add functionality so if no upcoming bookings then display no upcoming bookings */}
                 <h3 className="mb-4">Upcoming Booking </h3>
                 {upcomingBookingData.length === 0 ? <p>No Upcoming Trips</p> :
-                     <BookingCard  className="w-25"></BookingCard>
+                     <div>{upcomingBookingData.map((stays, index) => (
+                        <BookingCard {...stays} className="w-25"></BookingCard>
+                        ))}</div>    
                 }
-        
+                
             </Container>
             <Container className="mt-5 mb-5 p-2" style={{background:"red"}}>
                 <h3 className="mb-5">Past Booking</h3>
@@ -100,8 +109,12 @@ export const BookingHistory: React.FC = () => {
                     
                 </ButtonToolbar>
                 {pastBookingData.length === 0 ? <p> No Past Bookings</p> :
-                    <BookingCard className="w-25"></BookingCard>
+                    <div>{pastBookingData.map((stays, index) => (
+                        <BookingCard {...stays} className="w-25"></BookingCard>
+                        ))}
+                    </div>
                 }
+                
             </Container>
             
         </div>
