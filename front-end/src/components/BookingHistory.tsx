@@ -45,14 +45,16 @@ export const BookingHistory: React.FC = () => {
         })
         return {upcomingBookings, pastBookings}
     }
-
+ 
     //Method for getting all booking history and filtering if upcoming or past booking
     const getAllBookingHistory = async () => {
         try{
             const response = await axiosInstance.get("/stays/user/" + user?.userId)
             console.log("all bookings" , response)
-            setHistoryData(response.data)
             console.log("booking history", response.data)
+            setHistoryData(response.data)
+            
+            console.log("booking history", bookingHistoryData)
             const {upcomingBookings, pastBookings} = filterBookingHistory(bookingHistoryData, current)
             
             setUpcomingBooking(upcomingBookings)
@@ -62,7 +64,6 @@ export const BookingHistory: React.FC = () => {
 
             console.log("Upcoming Bookings: ", upcomingBookings)
             console.log("Past Booking: ", pastBookings)
-          
         } catch(error){
             console.log("error occurred")
             console.log(error)
@@ -73,7 +74,7 @@ export const BookingHistory: React.FC = () => {
     useEffect(() => {
         getAllBookingHistory()
         
-    },[])
+    }, [])
 
 
     return(
@@ -90,7 +91,7 @@ export const BookingHistory: React.FC = () => {
             </Container>
             <Container className="mt-5 mb-5 p-2" style={{background:"red"}}>
                 <h3 className="mb-5">Past Booking</h3>
-                {/*Search bar for past bookings */}
+                 {/*Search bar for past bookings */}
                 <ButtonToolbar aria-label="Button toolbar" className="d-flex justify-content-between w-100" >
                     <InputGroup className="mb-3 w-100" style={{backgroundColor:"gray"}}>
                         <InputGroup.Text id="Button-Search"><i className="bi bi-search"></i></InputGroup.Text>
@@ -109,7 +110,7 @@ export const BookingHistory: React.FC = () => {
                     
                 </ButtonToolbar>
                 {pastBookingData.length === 0 ? <p> No Past Bookings</p> :
-                    <div>{pastBookingData.map((stays, index) => (
+                    <div>{pastBookingData.map((stays) => (
                         <BookingCard {...stays} className="w-25"></BookingCard>
                         ))}
                     </div>
