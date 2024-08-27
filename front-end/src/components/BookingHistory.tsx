@@ -44,7 +44,7 @@ export const BookingHistory: React.FC = () => {
     //Method for getting all booking history and filtering if upcoming or past booking
     const getAllBookingHistory = async () => {
         try{
-            const response = await axiosInstance.get(`/stays/user/${user?.userId}`)
+            const response = await axiosInstance.get("/stays/user/" + user?.userId)
             console.log("all bookings" , response)
             setHistoryData(response.data)
             console.log("booking history", response.data)
@@ -58,6 +58,9 @@ export const BookingHistory: React.FC = () => {
           
         } catch(error){
             console.log("error occurred")
+            console.log(error)
+            console.log(user?.userId)
+            console.log(token)
         }
     }
     useEffect(() => {

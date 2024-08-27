@@ -24,15 +24,16 @@ export const CustomerHomePage: React.FC = () => {
   const axiosInstance = createAxiosInstance(token);
   const getHotels = async () => {
     const response = await axiosInstance.get(
-      " /api/hotels/fetch-by-city" + user.userId
+      " /api/hotels/fetch-by-city" , {params:{cityCode:"CLT"} }
     );
     setHotels(response.data);
   };
   const [favorites, setFavorites] = useState<HotelInterface[]>([]);
   const getFavorites = async () => {
     const response = await axiosInstance.get(
-      " /favorite/user="  
+      " /favorite/user=" + user?.userId 
     );
+    console.log(user?.userId)
     setFavorites(response.data)
   };
   const getData = async () => {
@@ -43,7 +44,7 @@ export const CustomerHomePage: React.FC = () => {
     <div className="Page">
       <div className="Search">
         <p>Search Bar Here</p>
-        <button onClick={getData}>Go!</button>
+        <button onClick={getHotels}>Go!</button>
         <p>Search Results Here</p>
         <Container className="d-flex flex-fill bg-primary justify-content-center">
           {data.map((hotels, index) => (
