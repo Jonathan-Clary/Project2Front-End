@@ -73,6 +73,7 @@ function HotelDetails(hotels: HotelInterface) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
+          
           <Button className="" variant="primary" onClick={favorite}>
         Favorite
       </Button>
