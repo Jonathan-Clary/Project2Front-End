@@ -4,10 +4,10 @@ import { UserInterface } from "./UserInterface";
 
 export interface BookingInterface{
 
-    stayId: number,
+    stayId:string,
     user: UserInterface,
     hotel: HotelInterface,
-    hotelId: number,
+    hotelId: string,
     bookedDate: "",
     endDate: ""
 

@@ -1,6 +1,6 @@
 export interface HotelInterface{
     
-        hotelId:number,
+        hotelId:string,
         hotelName:string,
         address:string,
         
