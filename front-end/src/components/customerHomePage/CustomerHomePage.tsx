@@ -3,6 +3,8 @@ import {
   CarouselItem,
   Col,
   Container,
+  DropdownItemText,
+  DropdownMenu,
   Modal,
   Row,
 } from "react-bootstrap";
@@ -53,7 +55,7 @@ export const CustomerHomePage: React.FC = () => {
     <div className="Page">
       <div className="Search">
         <p>Search Bar Here</p>
-        <button onClick={getHotels}>Go!</button>
+        <input type="search" name="City" id="City" placeholder="City"/><DropdownMenu>State</DropdownMenu><button onClick={getHotels}>Go!</button>
         <p>Search Results Here</p>
         <Container className="d-flex flex-wrap bg-primary justify-content-center">
           {hotels.map((hotels, index) => (
@@ -72,17 +74,19 @@ export const CustomerHomePage: React.FC = () => {
           </Carousel>
         </Container>
       </div>
-      <div className="UsersFavorites">
-        <p>Favorite / Saved Hotels Here</p>
-        <Container className="bg-primary justify-content-center">
-          <Carousel variant="dark d-flex justify-content-center">
-            
+      <p>Favorite / Saved Hotels Here</p>
+      <div className="d-flex justify-content-center">
+        <Container className="bg-primary">
+          <Carousel variant="dark">
+
               {favorites.map((hotels, index) => (
-                <CarouselItem className="d-flex justify-content-center">
+                <CarouselItem key={index} >
+                  <div className="d-flex justify-content-center">
                 <CardComponent {...hotels}></CardComponent>
+                </div>
                 </CarouselItem>
               ))}
-            
+
           </Carousel>
         </Container>
       </div>
