@@ -18,13 +18,15 @@ import createAxiosInstance from "../../services/AxiosInstance";
 
 export const CustomerHomePage: React.FC = () => {
   
+  const [city, setCity] = useState<HotelInterface[]>([]);
+  const [state, setState] = useState<HotelInterface[]>([]);
   const [data, setData] = useState<HotelInterface[]>([]);
   const [hotels, setHotels] = useState<HotelInterface[]>([]);
   const { user, token } = useAuth();
   const axiosInstance = createAxiosInstance(token);
   const getHotels = async () => {
     const response = await axiosInstance.get(
-      "/api/hotels/fetch-by-city" , {params:{cityCode:"CLT"} }
+      "/hotels/" + {city} + {state}
     );
     setHotels(response.data);
     console.log(user?.userId)
@@ -36,13 +38,17 @@ export const CustomerHomePage: React.FC = () => {
     const response = await axiosInstance.get(
       "/favorite/user=" + user?.userId 
     );
+    console.log(response.data)
     console.log(user?.userId)
     setFavorites(response.data)
   };
   // const getData = async () => {
   //   setData(mockData);
   // };
-
+  useEffect(() => {
+    getFavorites()
+    
+}, [])
   return (
     <div className="Page">
       <div className="Search">
@@ -58,23 +64,25 @@ export const CustomerHomePage: React.FC = () => {
       </div>
       <div className="Trending overflow-auto">
         <p>Trending Hotels Here</p>
-        <Container className="d-flex flex-fill flex-wrap  justify-content-center bg-primary ">
+        <Container className="d-flex flex-fill flex-wrap justify-content-center bg-primary ">
           <Carousel variant="dark">
             <CarouselItem className="d-flex">
-            {favorites.map((hotels, index) => (
-            <CardComponent {...hotels} className="w-25"></CardComponent>
-          ))}
+            
             </CarouselItem>
           </Carousel>
         </Container>
       </div>
       <div className="UsersFavorites">
         <p>Favorite / Saved Hotels Here</p>
-        <Container className="d-flex flex-wrap bg-primary justify-content-center">
-          <Carousel variant="dark">
-            <CarouselItem className="d-flex">
-
-            </CarouselItem>
+        <Container className="bg-primary justify-content-center">
+          <Carousel variant="dark d-flex justify-content-center">
+            
+              {favorites.map((hotels, index) => (
+                <CarouselItem className="d-flex justify-content-center">
+                <CardComponent {...hotels}></CardComponent>
+                </CarouselItem>
+              ))}
+            
           </Carousel>
         </Container>
       </div>
