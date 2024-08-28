@@ -49,7 +49,7 @@ export const CustomerHomePage: React.FC = () => {
         <p>Search Bar Here</p>
         <button onClick={getHotels}>Go!</button>
         <p>Search Results Here</p>
-        <Container className="d-flex flex-fill bg-primary justify-content-center">
+        <Container className="d-flex flex-wrap bg-primary justify-content-center">
           {hotels.map((hotels, index) => (
             <CardComponent {...hotels} className="w-25"></CardComponent>
             
