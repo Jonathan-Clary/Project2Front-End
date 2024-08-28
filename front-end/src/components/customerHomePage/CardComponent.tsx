@@ -17,7 +17,7 @@ export const CardComponent: React.FC<any> = (hotels: HotelInterface) => {
           <Card.Text className="">
             {hotels.address} Description Goes Here
           </Card.Text>
-          <HotelDetails hotelId={hotels.hotelId} hotelName={hotels.hotelName} address={hotels.address}></HotelDetails>
+          <HotelDetails image={hotels.image} rating={hotels.rating} hotelId={hotels.hotelId} hotelName={hotels.hotelName} address={hotels.address}></HotelDetails>
         </Card.Body>
       </Card>
     </div>

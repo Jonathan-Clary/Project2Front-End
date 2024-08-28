@@ -16,7 +16,7 @@ export const Navigation: React.FC = () => {
     
             {/* This is for smaller screens */}
             <NavDropdown
-              title={<i className="bi bi-person-circle fs-1"></i>} 
+              title={<i className="bi bi-person-circle fs-1 text-white"></i>} 
               id="basic-nav-dropdown"
               className="d-lg-none ms-auto no-arrow" //This is bootstrap for dropdowns that are only visible on screens sizes smaller than 992ppx
               align="end"
