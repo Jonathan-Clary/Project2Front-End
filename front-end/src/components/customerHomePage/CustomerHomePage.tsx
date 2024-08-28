@@ -3,6 +3,7 @@ import {
   CarouselItem,
   Col,
   Container,
+  Dropdown,
   DropdownItemText,
   DropdownMenu,
   Modal,
@@ -17,24 +18,15 @@ import { useEffect, useState } from "react";
 import mockData from "./mockData.json";
 import { useAuth } from "../../contexts/AuthContext";
 import createAxiosInstance from "../../services/AxiosInstance";
+import { SearchBarComponent } from "./SearchBarComponent";
 
 export const CustomerHomePage: React.FC = () => {
   
-  const [city, setCity] = useState<HotelInterface[]>([]);
-  const [state, setState] = useState<HotelInterface[]>([]);
-  const [data, setData] = useState<HotelInterface[]>([]);
-  const [hotels, setHotels] = useState<HotelInterface[]>([]);
+  
   const { user, token } = useAuth();
   const axiosInstance = createAxiosInstance(token);
-  const getHotels = async () => {
-    const response = await axiosInstance.get(
-      "/hotels/" + {city} + {state}
-    );
-    setHotels(response.data);
-    console.log(user?.userId)
-    console.log(token)
-    console.log(response.data)
-  };
+  const [data, setData] = useState<HotelInterface[]>([]);
+  
   const [favorites, setFavorites] = useState<HotelInterface[]>([]);
   const getFavorites = async () => {
     const response = await axiosInstance.get(
@@ -55,14 +47,9 @@ export const CustomerHomePage: React.FC = () => {
     <div className="Page">
       <div className="Search">
         <p>Search Bar Here</p>
-        <input type="search" name="City" id="City" placeholder="City"/><DropdownMenu>State</DropdownMenu><button onClick={getHotels}>Go!</button>
-        <p>Search Results Here</p>
-        <Container className="d-flex flex-wrap bg-primary justify-content-center">
-          {hotels.map((hotels, index) => (
-            <CardComponent {...hotels} className="w-25"></CardComponent>
-            
-          ))}
-        </Container>
+        <SearchBarComponent/>
+        
+        
       </div>
       <div className="Trending overflow-auto">
         <p>Trending Hotels Here</p>

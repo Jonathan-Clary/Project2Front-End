@@ -18,7 +18,7 @@ function HotelDetails(hotels: HotelInterface) {
         {
           dateAdded : new Date(),
           userId : user?.userId,
-          hotelId : hotels.hotelId
+          hotel: hotels
         }
         
       );
