@@ -7,7 +7,7 @@ export const Navigation: React.FC = () => {
     const { logout } = useAuth();
 
     return (
-        <Navbar expand="lg" className="bg-primary">
+        <Navbar expand="lg" variant="dark" className="bg-dark">
           <Container className="d-flex justify-content-between">
             {/* Logo on the left */}
             <Navbar.Brand className="navLogo" onClick={() => navigate('/')}>
@@ -23,7 +23,7 @@ export const Navigation: React.FC = () => {
             >
                 <NavDropdown.Item onClick={() => navigate("/")}>
                     <i className="bi bi-heart me-2 fs-3"></i>
-                    <span className="fs-5">Favorites</span>
+                    <span className="fs-5 ">Favorites</span>
                 </NavDropdown.Item>
                 <NavDropdown.Item onClick={() => navigate("/booking/history")}>
                     <i className="bi bi-calendar-event fs-3 me-2"></i>

@@ -18,7 +18,7 @@ function HotelDetails(hotels: HotelInterface) {
         {
           dateAdded : new Date(),
           userId : user?.userId,
-          hotelId : hotels.hotelId
+          hotel: hotels
         }
         
       );
@@ -73,6 +73,7 @@ function HotelDetails(hotels: HotelInterface) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
+          
           <Button className="" variant="primary" onClick={favorite}>
         Favorite
       </Button>
