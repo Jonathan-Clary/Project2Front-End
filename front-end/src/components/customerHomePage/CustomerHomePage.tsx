@@ -37,6 +37,7 @@ export const CustomerHomePage: React.FC = () => {
     console.log(user?.userId)
     setFavorites(response.data)
   };
+  
   // const getData = async () => {
   //   setData(mockData);
   // };
