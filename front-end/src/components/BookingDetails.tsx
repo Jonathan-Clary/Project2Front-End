@@ -24,18 +24,20 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
     };
 
     const favoriteHotel = async () => {
-        //try{
+        try{
             console.log(booking.hotelId)
-            // const response = await axiosInstance.post(
-            //     "/favorites",
-            //     {
-            //       dateAdded : new Date(),
-            //       userId : user?.userId,
-            //       hotel: booking.hotelId
-            //     }
+                const response = await axiosInstance.post(
+                    "/favorites",
+                    {
+                        dateAdded : new Date(),
+                        userId : user?.userId,
+                        hotel: booking.hotelId
+                    }
         
-            //   );
-          //}
+                );
+        } catch (error) {
+            console.log("error", error)
+        }
     }
     
 
@@ -44,18 +46,18 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
             <Modal.Header closeButton></Modal.Header>
             <Modal.Body>
                 <Card className="shadow-lg border-dark">
-                    <Card.Img variant="top" src="/images/HotelPlaceholder.jpg" ></Card.Img>
+                    <Card.Img variant="top" src={booking.hotel.image} ></Card.Img>
                     <Card.Body>
                         <Container>
                             <Form>
                                 <Row className="mb-3">
-                                    <Col xs={12} sm={6} md={6} lg={6}>
+                                    <Col xs={12} sm={12} md={12} lg={12}>
                                         <Form.Group controlId="hotelName">
                                             <Form.Label>Hotel Name</Form.Label>
                                             <Form.Control type="text" value={booking.hotel.name} readOnly></Form.Control>
                                         </Form.Group>
                                     </Col>
-                                    <Col xs={12} sm={6} md={6} lg={6}>
+                                    <Col xs={12} sm={12} md={12} lg={12}>
                                         <Form.Group controlId="hotelName">
                                             <Form.Label>Hotel Address</Form.Label>
                                             <Form.Control type="text" value={booking.hotel.address} readOnly></Form.Control>
