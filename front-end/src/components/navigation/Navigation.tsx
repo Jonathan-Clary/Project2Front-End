@@ -2,9 +2,30 @@ import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import "../navigation/Navigation.css"
 import { useAuth } from "../../contexts/AuthContext"
+import createAxiosInstance from "../../services/AxiosInstance"
+import { useEffect, useState } from "react"
+import { UserInterface } from "../../interfaces/UserInterface"
+
 export const Navigation: React.FC = () => {
     const navigate = useNavigate()
     const { logout } = useAuth();
+    const {user, token} = useAuth()
+    const axiosInstance = createAxiosInstance(token)
+    const [userFirstName, setUserFirstName] = useState<string>('')
+
+    const getUser = async() => {
+      try{
+        const response = await axiosInstance.get(`/user/` + user?.userId)
+        setUserFirstName(response.data.firstName)
+      } catch(error){
+        console.log("error occurred")
+        console.log(error)
+      }
+    } 
+
+    useEffect(()=> {
+      getUser()
+    },[user])
 
     return (
         <Navbar expand="lg" variant="dark" className="bg-dark">
@@ -16,7 +37,7 @@ export const Navigation: React.FC = () => {
     
             {/* This is for smaller screens */}
             <NavDropdown
-              title={<i className="bi bi-person-circle fs-1"></i>} 
+              title={<i className="bi bi-person-circle fs-1 text-white"></i>} 
               id="basic-nav-dropdown"
               className="d-lg-none ms-auto no-arrow" //This is bootstrap for dropdowns that are only visible on screens sizes smaller than 992ppx
               align="end"
@@ -54,7 +75,7 @@ export const Navigation: React.FC = () => {
                   title={
                     <>
                       <i className="bi bi-person-circle fs-4 me-2"></i>
-                      <span className="fs-5">Username</span>
+                      <span className="fs-5" >{userFirstName}</span>
                     </>
                   } 
                   id="basic-nav-dropdown" className="no-arrow ms-5"
