@@ -23,7 +23,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({onClick, className, ...
     return (
       
         <Card bg="light" border="dark" className="m-2" onClick={onClick} style={{maxWidth:"250px"}}>
-          <Card.Img variant="top" src="/images/HotelPlaceholder.jpg" />
+          <Card.Img variant="top" src={booking.hotel.image} />
           <Card.Body>
             <Card.Title>{booking.hotel.name}</Card.Title>
             <Card.Text className="">
