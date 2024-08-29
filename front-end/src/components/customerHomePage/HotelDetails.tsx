@@ -31,20 +31,19 @@ function HotelDetails(hotels: HotelInterface) {
 
   return (
     <>
-      <Row className="d-flex">
-        <Col >
-          <Button  variant="primary" onClick={handleShow}>
-            More Details
-          </Button>
-        </Col>
-        <Col>
-        <CardText>{hotels.rating} Stars 
-          <br></br>
-          <StarRating rating={hotels.rating}></StarRating>
-        </CardText>
-        
-        </Col>
-      </Row>
+       <div className="d-flex justify-content-between align-items-center mb-2">
+        <Button className="ms-2 p-1" size="sm" variant="primary" onClick={handleShow}>
+          More Details
+        </Button>
+        <div className="d-flex flex-column justify-content-center align-items-center p-1" style={{ height: '2.5rem' }}>
+          <span>
+            <CardText className="mb-1 text-center" style={{ fontSize: '0.850rem' }}>
+              {hotels.rating} Stars
+            </CardText>
+            <StarRating rating={hotels.rating} />
+          </span>
+        </div>
+      </div>
 
       <Modal
         show={show}
