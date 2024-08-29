@@ -11,13 +11,13 @@ export const CardComponent: React.FC<any> = (hotels: HotelInterface) => {
     <div className="m-3 shadow " style={{ maxWidth: 250 }}>
       
       <Card bg="light" border="dark">
-        <Card.Img variant="top" src="logo192.png" />
+        <Card.Img variant="top" src={hotels.image}  />
         <Card.Body>
-          <Card.Title>{hotels.hotelName}</Card.Title>
+          <Card.Title>{hotels.name}</Card.Title>
           <Card.Text className="">
-            {hotels.address} Description Goes Here
+            {hotels.address}
           </Card.Text>
-          <HotelDetails image={hotels.image} rating={hotels.rating} hotelId={hotels.hotelId} hotelName={hotels.hotelName} address={hotels.address}></HotelDetails>
+          <HotelDetails image={hotels.image} rating={hotels.rating} hotelId={hotels.hotelId} name={hotels.name} address={hotels.address}></HotelDetails>
         </Card.Body>
       </Card>
     </div>

@@ -92,7 +92,7 @@ export const BookingHistory: React.FC = () => {
         let filtered = pastBookingData
 
         if(searchTerm){
-            filtered = filtered.filter((booking)=> booking.hotel.hotelName.toLowerCase().includes(searchTerm.toLowerCase())
+            filtered = filtered.filter((booking)=> booking.hotel.name.toLowerCase().includes(searchTerm.toLowerCase())
             )
         }
         if(searchDate) {

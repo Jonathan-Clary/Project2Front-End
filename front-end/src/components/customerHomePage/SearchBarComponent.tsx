@@ -14,7 +14,7 @@ export const SearchBarComponent: React.FC = () => {
   const getHotels = async () => {
     console.log(state)
     console.log(city)
-    const response = await axiosInstance.get("/hotels/" + { city } + { state });
+    const response = await axiosInstance.get("/hotels/" + city +"+"+ state);
     setHotels(response.data);
     console.log(user?.userId);
     console.log(token);
