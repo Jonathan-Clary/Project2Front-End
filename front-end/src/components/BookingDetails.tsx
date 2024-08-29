@@ -4,6 +4,7 @@ import { BookingInterface } from "../interfaces/BookingInterface"
 import createAxiosInstance from "../services/AxiosInstance"
 import { Button, Card, Col, Container, Form, Modal, Row } from "react-bootstrap"
 import HotelDetails from "./customerHomePage/HotelDetails"
+import ReviewComponent from "./reviews/ReviewComponent"
 
 
 interface BookingHistoryCardDetailsProps {
@@ -101,6 +102,10 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
                                             <Button className="" variant="outline-dark" onClick={favoriteHotel} style={{fontSize:"18px"}}> <i className="bi bi-heart me-2"></i>
                                                 Favorite
                                             </Button>}
+                                            
+                                    </Col>
+                                    <Col xs="auto">
+                                    <ReviewComponent {...booking.hotel}></ReviewComponent>
                                     </Col>
                                 </Row>
                             </Form>
