@@ -54,7 +54,7 @@ export const CustomerHomePage: React.FC = () => {
       </div>
       <div className="Trending overflow-auto">
         <p>Trending Hotels Here</p>
-        <Container className="d-flex flex-fill flex-wrap justify-content-center bg-primary ">
+        <Container className="d-flex flex-fill flex-wrap justify-content-center">
           <Carousel variant="dark">
             <CarouselItem className="d-flex">
             
@@ -64,7 +64,7 @@ export const CustomerHomePage: React.FC = () => {
       </div>
       <p>Favorite / Saved Hotels Here</p>
       <div className="d-flex justify-content-center">
-        <Container className="bg-primary">
+        <Container className="">
           <Carousel variant="dark">
 
               {favorites.map((hotels, index) => (

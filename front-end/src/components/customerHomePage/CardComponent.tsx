@@ -6,7 +6,8 @@ import { FavoriteInterface } from "../../interfaces/FavoriteInterface";
 export const CardComponent: React.FC<any> = (hotels: FavoriteInterface) => {
 
   return (
-    <div className="m-3 shadow " style={{ maxWidth: 250 }}>
+    <>
+    <div className=" m-3 shadow" style={{ maxWidth: 250 }}>
       
       <Card bg="light" border="dark">
         <Card.Img variant="top" src={hotels.hotel.image}  />
@@ -16,8 +17,14 @@ export const CardComponent: React.FC<any> = (hotels: FavoriteInterface) => {
             {hotels.hotel.address}
           </Card.Text>
           <HotelDetails image={hotels.hotel.image} rating={hotels.hotel.rating} hotelId={hotels.hotel.hotelId} name={hotels.hotel.name} address={hotels.hotel.address}></HotelDetails>
+          
+          
         </Card.Body>
+       
+        
       </Card>
     </div>
+    
+    </>
   );
 };
