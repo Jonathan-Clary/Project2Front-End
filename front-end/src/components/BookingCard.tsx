@@ -21,16 +21,19 @@ export const BookingCard: React.FC<BookingCardProps> = ({onClick, className, ...
 
 
     return (
-      
-        <Card bg="light" border="dark" className="m-2" onClick={onClick} style={{maxWidth:"250px"}}>
-          <Card.Img variant="top" src={booking.hotel.image} />
-          <Card.Body>
-            <Card.Title>{booking.hotel.name}</Card.Title>
-            <Card.Text className="">
-              {date}
-            </Card.Text>
-          </Card.Body>
-        </Card>
+      <div className="m-3" style={{maxWidth:250, height:300}}>
+          <Card bg="light" border="dark" className="m-2 h-100" onClick={onClick} >
+            <div className="h-50">
+              <Card.Img variant="top" src={booking.hotel.image} style={{height: '175px', objectFit: 'cover'}} />
+            </div>
+            <Card.Body className="d-flex flex-column justify-content-between  mt-3">
+              <Card.Title>{booking.hotel.name}</Card.Title>
+              <Card.Text className="">
+                {date}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
     
     );
   };

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { BookingInterface } from "../interfaces/BookingInterface"
 import createAxiosInstance from "../services/AxiosInstance"
@@ -39,14 +39,14 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
             console.log("error", error)
         }
     }
-    
 
+    
     return(
         <Modal show={show} onHide={onHide}>
             <Modal.Header closeButton></Modal.Header>
             <Modal.Body>
-                <Card className="shadow-lg border-dark">
-                    <Card.Img variant="top" src={booking.hotel.image} ></Card.Img>
+                <Card className="shadow-lg border-dark" style={{maxWidth:"500px"}}>
+                    <Card.Img variant="top" src={booking.hotel.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }}></Card.Img>
                     <Card.Body>
                         <Container>
                             <Form>
