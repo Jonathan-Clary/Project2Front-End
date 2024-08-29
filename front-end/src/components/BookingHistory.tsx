@@ -4,7 +4,6 @@ import { BookingInterface } from "../interfaces/BookingInterface"
 import { useEffect, useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import createAxiosInstance from "../services/AxiosInstance"
-import InputGroupText from "react-bootstrap/esm/InputGroupText"
 import { BookingDetails } from "./BookingDetails"
 
 /*  TODO:
@@ -147,9 +146,12 @@ export const BookingHistory: React.FC = () => {
                 {/*Add functionality so if no upcoming bookings then display no upcoming bookings */}
                 <h3 className="mb-4">Upcoming Booking </h3>
                 {upcomingBookingData.length === 0 ? <p>No Upcoming Trips</p> :
-                     <div>{upcomingBookingData.map((stays) => (
-                        <BookingCard {...stays} className="w-25" onClick= {()=>handleCardClick(stays)}></BookingCard>
-                        ))}</div>    
+                    <Row>{upcomingBookingData.map((stays) => (
+                        <Col xs={12} sm={6} md={4} lg={3}>
+                            <BookingCard {...stays} className="w-25" onClick={()=>handleCardClick(stays)}></BookingCard>
+                        </Col>
+                        ))}
+                    </Row> 
                 }
                 
             </Container>
