@@ -48,18 +48,14 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
         setIsFavorite(response.data)
         console.log(isFavorite)
       }
-      const favorite = async () => {
-        const response = await axiosInstance.post("/favorites", {
-          dateAdded: new Date(),
-          userId: user?.userId,
-          hotel: booking.hotel,
-        });
-      };
+    
       const unfavorite = async () => {
         const response = await axiosInstance.delete(
           "/favorites/hotel/" + booking.hotel.hotelId + "/user/" + user?.userId
         )
       };
+
+    
     return(
         <Modal show={show} onHide={onHide} onShow={isFavorited}>
             <Modal.Header closeButton></Modal.Header>
@@ -99,13 +95,12 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
                                 </Row>
                                 <Row className="d-flex justify-content-center align-items-center">
                                     <Col xs="auto">
-                                        <Button variant="outline-dark" onClick={favoriteHotel}style={{fontSize:"18px"}}><i className="bi bi-heart me-2"></i> Favorite</Button>
-                                        {isFavorite ? <Button className="" variant="danger" onClick={unfavorite}>
-            Unfavorite
-          </Button>:
-          <Button className="" variant="primary" onClick={favorite}>
-            Favorite
-          </Button>}
+                                        {isFavorite ? <Button className="" variant="outline-danger" onClick={unfavorite}>
+                                                Unfavorite
+                                            </Button>:
+                                            <Button className="" variant="outline-dark" onClick={favoriteHotel} style={{fontSize:"18px"}}> <i className="bi bi-heart me-2"></i>
+                                                Favorite
+                                            </Button>}
                                     </Col>
                                 </Row>
                             </Form>
