@@ -25,7 +25,7 @@ export const ReviewSupportTickets: React.FC = () => {
     useEffect(() => {
         if (user && token) {
             // Fetch support tickets for the specific user
-            axios.get(`http://localhost:8080/support/get/all/${user.userId}`, {
+            axios.get(`http://localhost:8080/support/${user.userId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,  // Include token in the request headers
                 },
