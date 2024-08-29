@@ -31,7 +31,7 @@ export const CustomerHomePage: React.FC = () => {
   const [favorites, setFavorites] = useState<FavoriteInterface[]>([]);
   const getFavorites = async () => {
     const response = await axiosInstance.get(
-      "/favorites/user/" + user?.userId 
+      "/favorites/hotel/user/" + user?.userId 
     );
     console.log(response.data)
     console.log(user?.userId)

@@ -31,7 +31,7 @@ function HotelDetails(hotels: HotelInterface) {
 
   return (
     <>
-      <Row className="d-flex ">
+      <Row className="d-flex">
         <Col >
           <Button  variant="primary" onClick={handleShow}>
             More Details
