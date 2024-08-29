@@ -19,6 +19,7 @@ import mockData from "./mockData.json";
 import { useAuth } from "../../contexts/AuthContext";
 import createAxiosInstance from "../../services/AxiosInstance";
 import { SearchBarComponent } from "./SearchBarComponent";
+import { FavoriteInterface } from "../../interfaces/FavoriteInterface";
 
 export const CustomerHomePage: React.FC = () => {
   
@@ -27,10 +28,10 @@ export const CustomerHomePage: React.FC = () => {
   const axiosInstance = createAxiosInstance(token);
   const [data, setData] = useState<HotelInterface[]>([]);
   
-  const [favorites, setFavorites] = useState<HotelInterface[]>([]);
+  const [favorites, setFavorites] = useState<FavoriteInterface[]>([]);
   const getFavorites = async () => {
     const response = await axiosInstance.get(
-      "/favorite/user=" + user?.userId 
+      "/favorites/hotel/user/" + user?.userId 
     );
     console.log(response.data)
     console.log(user?.userId)
@@ -53,7 +54,7 @@ export const CustomerHomePage: React.FC = () => {
       </div>
       <div className="Trending overflow-auto">
         <p>Trending Hotels Here</p>
-        <Container className="d-flex flex-fill flex-wrap justify-content-center bg-primary ">
+        <Container className="d-flex flex-fill flex-wrap justify-content-center">
           <Carousel variant="dark">
             <CarouselItem className="d-flex">
             
@@ -63,7 +64,7 @@ export const CustomerHomePage: React.FC = () => {
       </div>
       <p>Favorite / Saved Hotels Here</p>
       <div className="d-flex justify-content-center">
-        <Container className="bg-primary">
+        <Container className="">
           <Carousel variant="dark">
 
               {favorites.map((hotels, index) => (

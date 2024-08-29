@@ -52,7 +52,7 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
                                     <Col xs={12} sm={6} md={6} lg={6}>
                                         <Form.Group controlId="hotelName">
                                             <Form.Label>Hotel Name</Form.Label>
-                                            <Form.Control type="text" value={booking.hotel.hotelName} readOnly></Form.Control>
+                                            <Form.Control type="text" value={booking.hotel.name} readOnly></Form.Control>
                                         </Form.Group>
                                     </Col>
                                     <Col xs={12} sm={6} md={6} lg={6}>

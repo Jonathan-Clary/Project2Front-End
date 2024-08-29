@@ -6,23 +6,26 @@ import { Container } from "react-bootstrap";
 import { CardComponent } from "./CardComponent";
 
 export const SearchBarComponent: React.FC = () => {
-  const [city, setCity] = useState<HotelInterface[]>([]);
-  const [state, setState] = useState();
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("AL");
   const [hotels, setHotels] = useState<HotelInterface[]>([]);
   const { user, token } = useAuth();
   const axiosInstance = createAxiosInstance(token);
   const getHotels = async () => {
-    const response = await axiosInstance.get("/hotels/" + { city } + { state });
+    console.log(state)
+    console.log(city)
+    const response = await axiosInstance.get("/hotels/" + city +"+"+ state);
     setHotels(response.data);
     console.log(user?.userId);
     console.log(token);
     console.log(response.data);
+    
   };
 
   return (
     <div>
-      <input type="search" name="City" id="City" placeholder="City" />
-      <select>
+      <input type="search" placeholder="City" onChange={e => setCity(e.target.value)}/>
+      <select value={state} onChange={e => setState(e.target.value)}>
         <option value="AL">Alabama</option>
         <option value="AK">Alaska</option>
         <option value="AZ">Arizona</option>
@@ -78,9 +81,9 @@ export const SearchBarComponent: React.FC = () => {
       <button onClick={getHotels}>Go!</button>
 
       <p>Search Results Here</p>
-      <Container className="d-flex flex-wrap bg-primary justify-content-center">
+      <Container className="d-flex flex-wrap  justify-content-center">
         {hotels.map((hotels, index) => (
-          <CardComponent {...hotels} className="w-25"></CardComponent>
+          <CardComponent {...hotels} className=""></CardComponent>
         ))}
       </Container>
     </div>
