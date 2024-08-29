@@ -16,7 +16,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import StarRating from "./StarRating";
 
 function HotelDetails(hotels: HotelInterface) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState();
   const [show, setShow] = useState(false);
   const { user, token } = useAuth();
   const [checkInDate, setCheckInDate] = useState("");
@@ -52,6 +52,7 @@ function HotelDetails(hotels: HotelInterface) {
       "/favorites/hotel/" + hotels.hotelId + "/user/" + user?.userId
     )
     setIsFavorite(response.data)
+    console.log(isFavorite)
   }
   return (
     <>
@@ -70,6 +71,7 @@ function HotelDetails(hotels: HotelInterface) {
       </div>
 
       <Modal
+        onShow={isFavorited}
         show={show}
         onHide={handleClose}
         backdrop="static"
@@ -113,11 +115,11 @@ function HotelDetails(hotels: HotelInterface) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          {isFavorite ? <Button className="" variant="primary" onClick={favorite}>
-            Favorite
-          </Button>:
-          <Button className="" variant="danger" onClick={unfavorite}>
+          {isFavorite ? <Button className="" variant="danger" onClick={unfavorite}>
             Unfavorite
+          </Button>:
+          <Button className="" variant="primary" onClick={favorite}>
+            Favorite
           </Button>}
           <Button variant="primary" onClick={bookHotel}>Book Hotel</Button>
         </Modal.Footer>
