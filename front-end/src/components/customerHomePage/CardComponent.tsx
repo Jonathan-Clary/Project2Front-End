@@ -5,7 +5,6 @@ import HotelDetails from "./HotelDetails";
 
 export const CardComponent: React.FC<any> = (hotels: HotelInterface) => {
 
-  console.log("Hi!-----", hotels.image)
 
   return (
     <>
