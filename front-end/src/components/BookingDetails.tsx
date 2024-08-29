@@ -31,7 +31,7 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
                     {
                         dateAdded : new Date(),
                         userId : user?.userId,
-                        hotel: booking.hotelId
+                        hotel: booking.hotel
                     }
         
                 );
@@ -80,7 +80,7 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
                                 </Row>
                                 <Row className="d-flex justify-content-center align-items-center">
                                     <Col xs="auto">
-                                        <Button variant="outline-dark" onClick={()=>favoriteHotel}style={{fontSize:"18px"}}><i className="bi bi-heart me-2"></i> Favorite</Button>
+                                        <Button variant="outline-dark" onClick={favoriteHotel}style={{fontSize:"18px"}}><i className="bi bi-heart me-2"></i> Favorite</Button>
                                     </Col>
                                 </Row>
                             </Form>

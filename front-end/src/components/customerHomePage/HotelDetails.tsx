@@ -18,6 +18,8 @@ import StarRating from "./StarRating";
 function HotelDetails(hotels: HotelInterface) {
   const [show, setShow] = useState(false);
   const { user, token } = useAuth();
+  const [checkInDate, setCheckInDate] = useState("");
+  const [checkOutDate, setCheckOutDate] = useState("");
   const axiosInstance = createAxiosInstance(token);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -28,7 +30,17 @@ function HotelDetails(hotels: HotelInterface) {
       hotel: hotels,
     });
   };
-
+  const bookHotel = async () => {
+    const response = await axiosInstance.post("/stays", {
+      userId: user?.userId,
+      hotel: hotels,
+      hotelId: hotels.hotelId,
+      bookedDate: checkInDate,
+      endDate: checkOutDate
+    })
+    console.log("check in date" + checkInDate)
+    console.log("check out date" + checkOutDate)
+  }
   return (
     <>
       <Row className="d-flex">
@@ -78,11 +90,11 @@ function HotelDetails(hotels: HotelInterface) {
             </div>
             <div className="d-flex justify-content-between">
               <div>Check-In Date</div>
-              <input type="date" name="" id="" />
+              <input type="datetime-local" name="" id="" onChange={e =>setCheckInDate(e.target.value)} />
             </div>
             <div className="d-flex justify-content-between">
               <div>Check-Out Date</div>
-              <input type="date" name="" id="" />
+              <input type="datetime-local" name="" id="" onChange={e =>setCheckOutDate(e.target.value)}/>
             </div>
           </Card.Body>
         </Modal.Body>
@@ -94,7 +106,7 @@ function HotelDetails(hotels: HotelInterface) {
           <Button className="" variant="primary" onClick={favorite}>
             Favorite
           </Button>
-          <Button variant="primary">Book Hotel</Button>
+          <Button variant="primary" onClick={bookHotel}>Book Hotel</Button>
         </Modal.Footer>
       </Modal>
     </>
