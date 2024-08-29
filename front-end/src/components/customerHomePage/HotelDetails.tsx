@@ -13,6 +13,7 @@ import Modal from "react-bootstrap/Modal";
 import { HotelInterface } from "../../interfaces/HotelInterface";
 import createAxiosInstance from "../../services/AxiosInstance";
 import { useAuth } from "../../contexts/AuthContext";
+import StarRating from "./StarRating";
 
 function HotelDetails(hotels: HotelInterface) {
   const [show, setShow] = useState(false);
@@ -27,6 +28,7 @@ function HotelDetails(hotels: HotelInterface) {
       hotel: hotels,
     });
   };
+
   return (
     <>
       <Row>
@@ -38,8 +40,7 @@ function HotelDetails(hotels: HotelInterface) {
         <Col>
         <CardText>{hotels.rating} Stars 
           <br></br>
-          
-          <i className="bi bi-star-fill"></i>
+          <StarRating rating={hotels.rating}></StarRating>
         </CardText>
         
         </Col>
