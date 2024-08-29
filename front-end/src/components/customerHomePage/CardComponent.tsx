@@ -1,23 +1,21 @@
-import { Button, Card, Row} from "react-bootstrap";
-import { HotelInterface } from "../../interfaces/HotelInterface";
+import { Card, } from "react-bootstrap";
 import React from "react";
 import HotelDetails from "./HotelDetails";
+import { FavoriteInterface } from "../../interfaces/FavoriteInterface";
 
-export const CardComponent: React.FC<any> = (hotels: HotelInterface) => {
-
-  
+export const CardComponent: React.FC<any> = (hotels: FavoriteInterface) => {
 
   return (
     <div className="m-3 shadow " style={{ maxWidth: 250 }}>
       
       <Card bg="light" border="dark">
-        <Card.Img variant="top" src={hotels.image}  />
+        <Card.Img variant="top" src={hotels.hotel.image}  />
         <Card.Body>
-          <Card.Title>{hotels.name}</Card.Title>
+          <Card.Title>{hotels.hotel.name}</Card.Title>
           <Card.Text className="">
-            {hotels.address}
+            {hotels.hotel.address}
           </Card.Text>
-          <HotelDetails image={hotels.image} rating={hotels.rating} hotelId={hotels.hotelId} name={hotels.name} address={hotels.address}></HotelDetails>
+          <HotelDetails image={hotels.hotel.image} rating={hotels.hotel.rating} hotelId={hotels.hotel.hotelId} name={hotels.hotel.name} address={hotels.hotel.address}></HotelDetails>
         </Card.Body>
       </Card>
     </div>

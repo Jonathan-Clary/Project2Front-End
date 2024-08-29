@@ -19,6 +19,7 @@ import mockData from "./mockData.json";
 import { useAuth } from "../../contexts/AuthContext";
 import createAxiosInstance from "../../services/AxiosInstance";
 import { SearchBarComponent } from "./SearchBarComponent";
+import { FavoriteInterface } from "../../interfaces/FavoriteInterface";
 
 export const CustomerHomePage: React.FC = () => {
   
@@ -27,7 +28,7 @@ export const CustomerHomePage: React.FC = () => {
   const axiosInstance = createAxiosInstance(token);
   const [data, setData] = useState<HotelInterface[]>([]);
   
-  const [favorites, setFavorites] = useState<HotelInterface[]>([]);
+  const [favorites, setFavorites] = useState<FavoriteInterface[]>([]);
   const getFavorites = async () => {
     const response = await axiosInstance.get(
       "/favorites/user/" + user?.userId 
