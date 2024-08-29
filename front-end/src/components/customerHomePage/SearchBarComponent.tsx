@@ -81,9 +81,9 @@ export const SearchBarComponent: React.FC = () => {
       <button onClick={getHotels}>Go!</button>
 
       <p>Search Results Here</p>
-      <Container className="d-flex flex-wrap bg-primary justify-content-center">
+      <Container className="d-flex flex-wrap  justify-content-center">
         {hotels.map((hotels, index) => (
-          <CardComponent {...hotels} className="w-25"></CardComponent>
+          <CardComponent {...hotels} className=""></CardComponent>
         ))}
       </Container>
     </div>
