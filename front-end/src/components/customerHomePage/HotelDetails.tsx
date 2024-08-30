@@ -14,6 +14,7 @@ import { HotelInterface } from "../../interfaces/HotelInterface";
 import createAxiosInstance from "../../services/AxiosInstance";
 import { useAuth } from "../../contexts/AuthContext";
 import StarRating from "./StarRating";
+import ReviewCard from "../reviews/ReviewCard";
 
 function HotelDetails(hotels: HotelInterface) {
   const [isFavorite, setIsFavorite] = useState();
@@ -123,7 +124,11 @@ function HotelDetails(hotels: HotelInterface) {
           </Button>}
           <Button variant="primary" onClick={bookHotel}>Book Hotel</Button>
         </Modal.Footer>
+        <Card>
+        
+        </Card>
       </Modal>
+      
     </>
   );
 }
