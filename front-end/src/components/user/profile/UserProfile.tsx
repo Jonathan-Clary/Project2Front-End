@@ -5,8 +5,21 @@ import "./UserProfile.css"
 import { useAuth } from "../../../contexts/AuthContext";
 import createAxiosInstance from "../../../services/AxiosInstance";
 
+interface User {
+    userId : string,
+    firstName : string,
+    lastName : string,
+    email : string 
+  }
+
 export default function UserProfile(){
     const {user, token} = useAuth();
+    const [users, setUsers] = useState<User>({
+        userId : '',
+        firstName : '',
+        lastName : '',
+        email : '' 
+      })
     const axiosInstance = createAxiosInstance(token);
     const [userId, setUserId] = useState("");
     const [message, setMessage] = useState("");
@@ -24,8 +37,13 @@ export default function UserProfile(){
 
     const [spin, setSpin] = useState(false);
 
-    // const navigate = useNavigate();
+    const getUser = async () => {
+        const response = await axiosInstance.get("/user/" + user?.userId);
+        setUsers(response.data);
+        
+      };
 
+    // const navigate = useNavigate();
    
     const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,5}$/g;
 
@@ -110,36 +128,13 @@ export default function UserProfile(){
     }
 
     useEffect(()=>{
-
+        getUser()
         if(firstName.length >= 3 && lastName.length >= 3 && email.match(isValidEmail) && (password.length > 3 || password.length == 0))
             setDisableBtn(false);
         else
-            setDisableBtn(true);
-
-        if(user !== null){
-            let user_from_context_api = {"userId":"userId", "firstName":"fname", "lastName":"lname", "email":"test@test.test"}
-            setUserId(user!.userId)
-            setFirstName(user_from_context_api.firstName);
-            setLastName(user_from_context_api.lastName);
-            setEmail(user_from_context_api.email);
-
-            // api.get('/user/me')
-            // .then(function (response) {
-            //     setUserId(response.data.userId)
-            //     setFirstName(response.data.firstName);
-            //     setLastName(response.data.lastName);
-            //     setEmail(response.data.email);
-            // })
-            // .catch((error) =>{
-                // if(error.response){
-                //     if(error.response.status == 401)
-                //         navigate('/login')
-                // }
-                // else
-        //             setMessage("something went wrong.");
-        //     })
-        }
-    });
+            setDisableBtn(false);
+        console.log({users})
+    }, []);
     
 
     return(
@@ -154,16 +149,16 @@ export default function UserProfile(){
                         <Row>
                             <div className="err_msg">{firstNameMsg}</div>
                             <Form.Group className="mb-3">
-                                <Form.FloatingLabel label="firstName">
-                                <Form.Control name="firstName" id="firstName" placeholder="firstName" value={firstName} onChange={validate} />
+                                <Form.FloatingLabel label="First Name">
+                                <Form.Control name="firstName" id="firstName" placeholder="First Name"  onChange={validate} />
                                 </Form.FloatingLabel>
                             </Form.Group>
                         </Row>
                         <Row>
                             <div className="err_msg">{lastNameMsg}</div>
                             <Form.Group className="mb-3">
-                                <Form.FloatingLabel label="LastName">
-                                <Form.Control name="lastName" id="lastName" placeholder="LastName" value={lastName} onChange={validate} />
+                                <Form.FloatingLabel label="Last Name">
+                                <Form.Control name="lastName" id="lastName" placeholder="Last Name"  onChange={validate} />
                                 </Form.FloatingLabel>
                             </Form.Group>
                         </Row>
@@ -171,7 +166,7 @@ export default function UserProfile(){
                             <div className="err_msg">{emailMsg}</div>
                             <Form.Group className="mb-3">
                                 <Form.FloatingLabel label="Email">
-                                <Form.Control name="email" id="email" type="email" placeholder={user?.email} value={email} onChange={validate} readOnly />
+                                <Form.Control name="email" id="email" type="email" placeholder={user?.email}  onChange={validate} />
                                 </Form.FloatingLabel>
                             </Form.Group>
                         </Row>
