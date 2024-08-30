@@ -43,6 +43,9 @@ export const CustomerHomePage: React.FC = () => {
   }, [])
   return (
     <Container>
+      <section>
+        <h2>Where is your Destination?</h2>
+      </section>
       <Container>
         <SearchBarComponent />
       </Container>

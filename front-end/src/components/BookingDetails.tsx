@@ -126,7 +126,7 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
                                         <Form.Group controlId="userReview">
                                             <Form.Label>Your Review</Form.Label>
                                             <Container>
-                                                <StarRating rating={0} /> {/* NEED TO FIX*** */}
+                                                <StarRating rating={booking.hotel.rating}/>
                                             </Container>
                                         </Form.Group>
                                     </Col>
