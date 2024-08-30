@@ -3,7 +3,7 @@ import { useAuth } from "../contexts/AuthContext"
 import { BookingInterface } from "../interfaces/BookingInterface"
 import createAxiosInstance from "../services/AxiosInstance"
 import { Button, Card, Col, Container, Form, Modal, Row } from "react-bootstrap"
-import HotelDetails from "./customerHomePage/HotelDetails"
+import ReviewComponent from "./reviews/ReviewComponent"
 
 
 interface BookingHistoryCardDetailsProps {
@@ -12,6 +12,8 @@ interface BookingHistoryCardDetailsProps {
     booking: BookingInterface | null
 }
 export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, onHide, booking}) => {
+    
+    const [isFavorite, setIsFavorite] = useState();
     const {token, user} = useAuth()
     const axiosInstance = createAxiosInstance(token)
 
@@ -39,10 +41,23 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
             console.log("error", error)
         }
     }
+    const isFavorited = async() =>{
+        const response = await axiosInstance.get(
+          "/favorites/hotel/" + booking.hotel.hotelId + "/user/" + user?.userId
+        )
+        setIsFavorite(response.data)
+        console.log(isFavorite)
+      }
+    
+      const unfavorite = async () => {
+        const response = await axiosInstance.delete(
+          "/favorites/hotel/" + booking.hotel.hotelId + "/user/" + user?.userId
+        )
+      };
 
     
     return(
-        <Modal show={show} onHide={onHide}>
+        <Modal show={show} onHide={onHide} onShow={isFavorited}>
             <Modal.Header closeButton></Modal.Header>
             <Modal.Body>
                 <Card className="shadow-lg border-dark" style={{maxWidth:"500px"}}>
@@ -80,7 +95,16 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
                                 </Row>
                                 <Row className="d-flex justify-content-center align-items-center">
                                     <Col xs="auto">
-                                        <Button variant="outline-dark" onClick={favoriteHotel}style={{fontSize:"18px"}}><i className="bi bi-heart me-2"></i> Favorite</Button>
+                                        {isFavorite ? <Button className="" variant="outline-danger" onClick={unfavorite}>
+                                                Unfavorite
+                                            </Button>:
+                                            <Button className="" variant="outline-dark" onClick={favoriteHotel} style={{fontSize:"18px"}}> <i className="bi bi-heart me-2"></i>
+                                                Favorite
+                                            </Button>}
+                                            
+                                    </Col>
+                                    <Col xs="auto">
+                                    <ReviewComponent {...booking.hotel}></ReviewComponent>
                                     </Col>
                                 </Row>
                             </Form>

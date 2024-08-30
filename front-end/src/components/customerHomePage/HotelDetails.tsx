@@ -14,8 +14,12 @@ import { HotelInterface } from "../../interfaces/HotelInterface";
 import createAxiosInstance from "../../services/AxiosInstance";
 import { useAuth } from "../../contexts/AuthContext";
 import StarRating from "./StarRating";
+import ReviewCard from "../reviews/ReviewCard";
+import { ReviewInterface } from "../../interfaces/ReviewInterface";
+import { CardComponent } from "./CardComponent";
 
 function HotelDetails(hotels: HotelInterface) {
+  const [reviews, setReviews] = useState<ReviewInterface[]>([]);
   const [isFavorite, setIsFavorite] = useState();
   const [show, setShow] = useState(false);
   const { user, token } = useAuth();
@@ -32,6 +36,10 @@ function HotelDetails(hotels: HotelInterface) {
     });
   };
 
+  const getReviews = async () => {
+    const response = await axiosInstance.get("/reviews/hotel/" + hotels.hotelId);
+    setReviews(response.data)
+  }
   const unfavorite = async () => {
     const response = await axiosInstance.delete(
       "/favorites/hotel/" + hotels.hotelId + "/user/" + user?.userId
@@ -57,7 +65,10 @@ function HotelDetails(hotels: HotelInterface) {
     setIsFavorite(response.data)
     console.log(isFavorite)
   }
-  
+  const onModalOpen = () => {
+    isFavorited()
+    getReviews()
+  }
   return (
     <>
        <div className="d-flex justify-content-between align-items-center mb-2">
@@ -75,7 +86,7 @@ function HotelDetails(hotels: HotelInterface) {
       </div>
 
       <Modal
-        onShow={isFavorited}
+        onShow={onModalOpen}
         show={show}
         onHide={handleClose}
         backdrop="static"
@@ -114,6 +125,9 @@ function HotelDetails(hotels: HotelInterface) {
               <input type="datetime-local" name="" id="" onChange={e =>setCheckOutDate(e.target.value)}/>
             </div>
           </Card.Body>
+          
+        
+        
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -127,7 +141,11 @@ function HotelDetails(hotels: HotelInterface) {
           </Button>}
           <Button variant="primary" onClick={bookHotel}>Book Hotel</Button>
         </Modal.Footer>
+        {reviews.map((review, index) => (
+          <ReviewCard {...review}></ReviewCard>
+        ))}
       </Modal>
+      
     </>
   );
 }
