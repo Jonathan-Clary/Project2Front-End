@@ -28,6 +28,7 @@ function HotelDetails(hotels: HotelInterface) {
   const axiosInstance = createAxiosInstance(token);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
   const favorite = async () => {
     const response = await axiosInstance.post("/favorites", {
       dateAdded: new Date(),

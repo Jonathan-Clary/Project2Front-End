@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { HotelInterface } from "../../interfaces/HotelInterface";
 import createAxiosInstance from "../../services/AxiosInstance";
-import { Button, Col, Container, Dropdown, DropdownButton, Form, InputGroup, Row } from "react-bootstrap";
+import { Button, Col, Container, Dropdown, DropdownButton, Form, InputGroup, Row, Spinner } from "react-bootstrap";
 import { CardComponent } from "./CardComponent";
 
 
@@ -13,7 +13,7 @@ export const SearchBarComponent: React.FC = () => {
   const [hotels, setHotels] = useState<HotelInterface[]>([]);
   const { user, token } = useAuth();
   const axiosInstance = createAxiosInstance(token);
-
+  const [loading, setLoading] = useState(true);
   const stateOptions = [
     { code: 'AL', name: 'Alabama' },
     { code: 'AK', name: 'Alaska' },
@@ -69,13 +69,14 @@ export const SearchBarComponent: React.FC = () => {
   ];
 
   const getHotels = async () => {
-    console.log(state)
-    console.log(city)
-    const response = await axiosInstance.get("/hotels/" + city + "+" + state);
-    setHotels(response.data);
-    console.log(user?.userId);
-    console.log(token);
-    console.log(response.data);
+    try {
+      const response = await axiosInstance.get("/hotels/" + city + "+" + state);
+      setHotels(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error getting hotels: ', error);
+      setLoading(false);
+    }
 
   };
 
@@ -88,53 +89,63 @@ export const SearchBarComponent: React.FC = () => {
     });
   };
 
+  useEffect(() => {
+    getHotels();
+  }, [])
+
   return (
     <>
-      <div>
-        <Container className="d-flex justify-content-center align-items-center mb-3 mt-5 p-4">
-          <Row className="w-100">
-            <Col xs={9}>
-              <InputGroup className="mb-3">
-                <InputGroup.Text id="City">
-                  <i className="bi bi-search"></i>
-                </InputGroup.Text>
-                <Form.Control placeholder="City" aria-label="City" value={city} onChange={(e) => setCity(e.target.value)} />
-                <Button onClick={getHotels}>Go!</Button>
-              </InputGroup>
-            </Col>
+      {loading ? (
+        <div className="d-flex justify-content-center align-items-center" style={{ height: '200px' }}>
+          <Spinner animation="border" variant="primary" />
+        </div>
+      ) : (
+        <>
+          <Container className="d-flex justify-content-center align-items-center mb-3 mt-5 p-4">
+            <Row className="w-100">
+              <Col xs={9}>
+                <InputGroup className="mb-3">
+                  <InputGroup.Text id="City">
+                    <i className="bi bi-search"></i>
+                  </InputGroup.Text>
+                  <Form.Control placeholder="City" aria-label="City" value={city} onChange={(e) => setCity(e.target.value)} />
+                  <Button onClick={getHotels}>Go!</Button>
+                </InputGroup>
+              </Col>
 
-            <Col xs={3}>
-              <Dropdown>
-                <Dropdown.Toggle id="dropdown-custom-components" className="custom-toggle">
-                  {stateOptions.find(option => option.code === state)?.name || 'Select State'}
-                </Dropdown.Toggle>
+              <Col xs={3}>
+                <Dropdown>
+                  <Dropdown.Toggle id="dropdown-custom-components" className="custom-toggle">
+                    {stateOptions.find(option => option.code === state)?.name || 'Select State'}
+                  </Dropdown.Toggle>
 
-                <Dropdown.Menu className="custom-menu">
-                  <Form.Control
-                    autoFocus
-                    className="filter-input"
-                    placeholder="Type to filter..."
-                    onChange={filterDropdownItems} />
-                  {stateOptions.map(({ code, name }) => (
-                    <Dropdown.Item
-                      key={code}
-                      onClick={() => { setState(code); setStateFilter(""); }}>
-                      {name}
-                    </Dropdown.Item>
-                  ))}
-                </Dropdown.Menu>
-              </Dropdown>
-            </Col>
-          </Row>
-        </Container>
-      </div>
-      <footer className="footer">
-        <Container className="d-flex flex-wrap justify-content-center mt-2">
-          {hotels.map((hotels, index) => (
-            <CardComponent {...hotels} className=""></CardComponent>
-          ))}
-        </Container>
-      </footer>
+                  <Dropdown.Menu className="custom-menu">
+                    <Form.Control
+                      autoFocus
+                      className="filter-input"
+                      placeholder="Type to filter..."
+                      onChange={filterDropdownItems} />
+                    {stateOptions.map(({ code, name }) => (
+                      <Dropdown.Item
+                        key={code}
+                        onClick={() => { setState(code); setStateFilter(""); }}>
+                        {name}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Col>
+            </Row>
+          </Container>
+          <footer className="footer">
+            <Container className="d-flex flex-wrap justify-content-center mt-2">
+              {hotels.map((hotels, index) => (
+                <CardComponent {...hotels} loading={loading}></CardComponent>
+              ))}
+            </Container>
+          </footer>
+        </>
+      )}
     </>
   );
 };
