@@ -1,0 +1,27 @@
+[
+    {
+        "hotelId":1,
+        "hotelName":"Hotel1",
+        "address":"1 Main ST"
+    },
+    {
+        "hotelId":2,
+        "hotelName":"Hotel2",
+        "address":"2 Main ST"
+    },
+    {
+        "hotelId":3,
+        "hotelName":"Hotel3",
+        "address":"3 Main ST"
+    },
+    {
+        "hotelId":4,
+        "hotelName":"Hotel4",
+        "address":"4 Main ST"
+    },
+    {
+        "hotelId":5,
+        "hotelName":"Hotel5",
+        "address":"5 Main ST"
+    }
+]

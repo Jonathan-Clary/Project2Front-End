@@ -1,0 +1,7 @@
+.register-card-header {
+    background-image: url('/public/images/register_user.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 500px!important;
+    height: 250px!important;
+}
