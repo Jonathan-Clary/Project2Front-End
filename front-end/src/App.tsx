@@ -12,14 +12,16 @@ import { TempLogin } from './components/login-components/user-login/temp';
 import { HelpCenterDashboard} from './components/SupportTickets/HelpCenterDashboard';
 import { ReviewSupportTickets } from './components/SupportTickets/ReviewSupportTickets';
 import { CustomerSupport } from './components/SupportTickets/CustomerSupport';
+import { CustomToast } from './components/toast/CustomToast';
+import { useGlobalContext } from './contexts/GlobalContext';
 
 function App() {
   const { token } = useAuth();
-
+  const { toastBg, toastMessage} = useGlobalContext();
   return (
     <div className="App">
       {token != null ? <Navigation/> : <></>}
-
+      <CustomToast />
       <Routes>
         <Route path="/login" element={<LoginContainer />} />
         <Route path="/register" element={<Register/>} /> 
