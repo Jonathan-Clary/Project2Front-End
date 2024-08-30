@@ -4,6 +4,6 @@ import { UserInterface } from "./UserInterface";
 export interface ReviewInterface {
     reviewText: string;
     hotel: HotelInterface;
-    stars: String
+    stars: number
     userId: UserInterface["userId"]; 
 }

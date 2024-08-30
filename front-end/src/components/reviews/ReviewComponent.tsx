@@ -13,6 +13,7 @@ function ReviewComponent(hotels: HotelInterface) {
   const axiosInstance = createAxiosInstance(token);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
   const postReview = async () => {
     const response = await axiosInstance.post("/reviews", {
       userId: user?.userId,
