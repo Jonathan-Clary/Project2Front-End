@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   MDBCard,
   MDBCardBody,
@@ -8,99 +8,49 @@ import {
   MDBRow,
   MDBTypography,
 } from "mdb-react-ui-kit";
+import { ReviewInterface } from "../../interfaces/ReviewInterface";
+import createAxiosInstance from "../../services/AxiosInstance";
+import { useAuth } from "../../contexts/AuthContext";
 
-export default function Column() {
+interface User {
+    userId : string,
+    firstName : string,
+    lastname : string,
+    email : string 
+  }
+export default function Column(review:ReviewInterface) {
+    const [users, setUsers] = useState<User>({
+        userId : '',
+        firstName : '',
+        lastname : '',
+        email : '' 
+      })
+    const { user, token } = useAuth();
+    const axiosInstance = createAxiosInstance(token);
+    const getUser = async () => {
+        const response = await axiosInstance.get("/user/" + user?.userId);
+        setUsers(response.data);
+        
+      };
+      useEffect(() => {
+        getUser()
+        
+    }, [])
   return (
-    <section className="vh-100">
-      <MDBContainer className="py-5" style={{ maxWidth: "1000px" }}>
-        <MDBRow className="justify-content-center">
-          <MDBCol md="11" lg="9" xl="7">
-            <div className="d-flex flex-start mb-4">
-              <img
-                className="rounded-circle shadow-1-strong me-3"
-                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp"
-                alt="avatar"
-                width="65"
-                height="65"
-              />
-
-              <MDBCard className="w-100">
+    <section className="">
+      <MDBContainer className="" style={{ maxWidth: "1000px" }}>
+        <MDBCard className="w-100">
                 <MDBCardBody className="p-4">
-                  <div>
-                    <MDBTypography tag="h5">Johny Cash</MDBTypography>
-                    <p className="small">3 hours ago</p>
+                 
+                    <MDBTypography tag="h5">{users.firstName}</MDBTypography>
+                    <p className="small">{review.stars} Stars</p>
                     <p>
-                      Cras sit amet nibh libero, in gravida nulla. Nulla vel
-                      metus scelerisque ante sollicitudin. Cras purus odio,
-                      vestibulum in vulputate at, tempus viverra turpis. Fusce
-                      condimentum nunc ac nisi vulputate fringilla. Donec
-                      lacinia congue felis in faucibus ras purus odio,
-                      vestibulum in vulputate at, tempus viverra turpis.
+                      {review.reviewText}
                     </p>
-
-                    <div className="d-flex justify-content-between align-items-center">
-                      <div className="d-flex align-items-center">
-                        <a href="#!" className="link-muted me-2">
-                          <MDBIcon fas icon="thumbs-up me-1" />
-                          132
-                        </a>
-                        <a href="#!" className="link-muted">
-                          <MDBIcon fas icon="thumbs-down me-1" />
-                          15
-                        </a>
-                      </div>
-                      <a href="#!" className="link-muted">
-                        <MDBIcon fas icon="reply me-1" /> Reply
-                      </a>
-                    </div>
-                  </div>
                 </MDBCardBody>
               </MDBCard>
-            </div>
-
-            <div className="d-flex flex-start mb-4">
-              <img
-                className="rounded-circle shadow-1-strong me-3"
-                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp"
-                alt="avatar"
-                width="65"
-                height="65"
-              />
-
-              <MDBCard className="w-100">
-                <MDBCardBody className="p-4">
-                  <div>
-                    <MDBTypography tag="h5">Mindy Campbell</MDBTypography>
-                    <p className="small">5 hours ago</p>
-                    <p>
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                      Delectus cumque doloribus dolorum dolor repellat nemo
-                      animi at iure autem fuga cupiditate architecto ut quam
-                      provident neque, inventore nisi eos quas?
-                    </p>
-
-                    <div className="d-flex justify-content-between align-items-center">
-                      <div className="d-flex align-items-center">
-                        <a href="#!" className="link-muted me-2">
-                          <MDBIcon fas icon="thumbs-up me-1" />
-                          158
-                        </a>
-                        <a href="#!" className="link-muted">
-                          <MDBIcon fas icon="thumbs-down me-1" />
-                          13
-                        </a>
-                      </div>
-                      <a href="#!" className="link-muted">
-                        <MDBIcon fas icon="reply me-1" /> Reply
-                      </a>
-                    </div>
-                  </div>
-                </MDBCardBody>
-              </MDBCard>
-            </div>
-          </MDBCol>
-        </MDBRow>
       </MDBContainer>
     </section>
   );
 }
+

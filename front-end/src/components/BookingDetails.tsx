@@ -3,7 +3,6 @@ import { useAuth } from "../contexts/AuthContext"
 import { BookingInterface } from "../interfaces/BookingInterface"
 import createAxiosInstance from "../services/AxiosInstance"
 import { Button, Card, Col, Container, Form, Modal, Row } from "react-bootstrap"
-import HotelDetails from "./customerHomePage/HotelDetails"
 import ReviewComponent from "./reviews/ReviewComponent"
 
 
