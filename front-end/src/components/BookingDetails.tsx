@@ -21,6 +21,7 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
     const axiosInstance = createAxiosInstance(token)
     const [isReviewed, setReviewed] = useState<boolean>(false)
     const [showModal, setShowModal] = useState<boolean>(false)
+    const [userReview, setUserReviewed] = useState<ReviewInterface[]>([])
 
     if(!booking) return null
 
@@ -77,6 +78,17 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
 
     }
 
+    const getReview = async() => {
+        try{
+            const response = await axiosInstance.get("/reviews/user/" + user?.userId + "/hotel/" + booking.hotel.hotelId)
+            setUserReviewed(response.data)
+            console.log("user", response.data)
+            setShowModal(true)
+        } catch (error) {
+            console.log("error", error)
+        }
+    }
+
     const handleisFavoritedandisReview = async () =>{
         await isFavorited()
         await isReview()
@@ -121,7 +133,6 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
                                     </Col>
                                 </Row>
                                 
-
                                 <Row className="d-flex justify-content-center align-items-center">
                                     <Col xs="auto">
                                         {isFavorite ? <Button className="" variant="outline-danger" onClick={unfavorite}>
@@ -140,7 +151,7 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
                                      
                                             <Button
                                                 variant="outline-dark"
-                                                onClick={() => setShowModal(true)}
+                                                onClick={() => getReview()}
                                                 >
                                                 Reviews
                                             </Button> : <></>
@@ -158,9 +169,11 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
         </Modal>
 
         <UserReviews
+            reviews ={userReview}
             bookings={booking}
             show={showModal}
             onHide={()=>setShowModal(false)}
+            
         />
         </>
     )
