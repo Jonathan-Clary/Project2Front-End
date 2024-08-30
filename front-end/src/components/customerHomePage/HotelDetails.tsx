@@ -28,6 +28,7 @@ function HotelDetails(hotels: HotelInterface) {
   const axiosInstance = createAxiosInstance(token);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
   const favorite = async () => {
     const response = await axiosInstance.post("/favorites", {
       dateAdded: new Date(),
@@ -35,6 +36,7 @@ function HotelDetails(hotels: HotelInterface) {
       hotel: hotels,
     });
   };
+
   const getReviews = async () => {
     const response = await axiosInstance.get("/reviews/hotel/" + hotels.hotelId);
     setReviews(response.data)
@@ -44,6 +46,7 @@ function HotelDetails(hotels: HotelInterface) {
       "/favorites/hotel/" + hotels.hotelId + "/user/" + user?.userId
     )
   };
+
   const bookHotel = async () => {
     const response = await axiosInstance.post("/stays", {
       userId: user?.userId,
@@ -55,6 +58,7 @@ function HotelDetails(hotels: HotelInterface) {
     console.log("check in date" + checkInDate)
     console.log("check out date" + checkOutDate)
   }
+
   const isFavorited = async() =>{
     const response = await axiosInstance.get(
       "/favorites/hotel/" + hotels.hotelId + "/user/" + user?.userId
@@ -146,5 +150,4 @@ function HotelDetails(hotels: HotelInterface) {
     </>
   );
 }
-
 export default HotelDetails;
