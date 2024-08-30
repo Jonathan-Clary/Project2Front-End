@@ -4,8 +4,9 @@ import { BookingInterface } from "../interfaces/BookingInterface"
 import createAxiosInstance from "../services/AxiosInstance"
 import { Button, Card, Col, Container, Form, Modal, Row } from "react-bootstrap"
 import ReviewComponent from "./reviews/ReviewComponent"
-import StarRating from "./customerHomePage/StarRating"
 import { ReviewInterface } from "../interfaces/ReviewInterface"
+import { UserReviews } from "./reviews/UserReview"
+import StarRating from "./customerHomePage/StarRating"
 
 
 interface BookingHistoryCardDetailsProps {
@@ -19,7 +20,7 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
     const {token, user} = useAuth()
     const axiosInstance = createAxiosInstance(token)
     const [isReviewed, setReviewed] = useState<boolean>(false)
-    const [userReview, setUserReviewed] = useState<ReviewInterface[]>([])
+    const [showModal, setShowModal] = useState<boolean>(false)
 
     if(!booking) return null
 
@@ -77,24 +78,12 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
     }
 
     const handleisFavoritedandisReview = async () =>{
-        await getReview()
         await isFavorited()
         await isReview()
     }
-
-    const getReview = async() => {
-        try{
-            const response = await axiosInstance.get("/reviews/user/" + user?.userId + "/hotel/" + booking.hotel.hotelId)
-            setUserReviewed(response.data)
-            console.log("user", response.data)
-        } catch (error) {
-            console.log("error", error)
-        }
-    }
-
-
     
     return(
+        <>
         <Modal show={show} onHide={onHide} onShow={handleisFavoritedandisReview}>
             <Modal.Header closeButton></Modal.Header>
             <Modal.Body>
@@ -131,18 +120,7 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
                                         </Form.Group>
                                     </Col>
                                 </Row>
-                                {isReviewed ? <Row>
-                                    <Col xs={12} sm={6} md={6} lg={6}>
-                                        <Form.Group controlId="userReview">
-                                            <Form.Label>Your Review</Form.Label>
-                                            <Container>
-                                                <StarRating />
-                                            </Container>
-                                        </Form.Group>
-                                    </Col>
-                                </Row> :
-                                <></>
-                                }
+                                
                                 <Row className="d-flex justify-content-center align-items-center">
                                     <Col xs="auto">
                                         {isFavorite ? <Button className="" variant="outline-danger" onClick={unfavorite}>
@@ -156,6 +134,18 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
                                     <Col xs="auto">
                                         <ReviewComponent {...booking.hotel}></ReviewComponent>
                                     </Col>
+                                    <Col xs="auto">
+                                        {isReviewed ? 
+                                     
+                                            <Button
+                                                variant="outline-dark"
+                                                onClick={() => setShowModal(true)}
+                                                >
+                                                Reviews
+                                            </Button> : <></>
+                                
+                                        }
+                                    </Col>
                                 </Row>
                             </Form>
                         </Container>
@@ -163,6 +153,14 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
 
                 </Card>
             </Modal.Body>
+
         </Modal>
+
+        <UserReviews
+            bookings={booking}
+            show={showModal}
+            onHide={()=>setShowModal(false)}
+        />
+        </>
     )
 }

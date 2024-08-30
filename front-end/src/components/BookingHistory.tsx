@@ -8,7 +8,7 @@ import { BookingDetails } from "./BookingDetails"
 
 /*  TODO:
         - PAGINATION for cards
-        - Able to click card and see booking information
+        
 */
 
 export const BookingHistory: React.FC = () => {
