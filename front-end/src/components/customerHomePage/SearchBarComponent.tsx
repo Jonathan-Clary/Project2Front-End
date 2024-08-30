@@ -115,14 +115,13 @@ export const SearchBarComponent: React.FC = () => {
 
               <Col xs={3}>
                 <Dropdown>
-                  <Dropdown.Toggle id="dropdown-custom-components" className="custom-toggle" >
+                  <Dropdown.Toggle id="dropdown-custom-components" >
                     {stateOptions.find(option => option.code === state)?.name || 'Select State'}
                   </Dropdown.Toggle>
 
-                  <Dropdown.Menu className="custom-menu">
+                  <Dropdown.Menu style={{maxHeight: '200px', overflow: 'auto'}}>
                     <Form.Control
                       autoFocus
-                      className="filter-input"
                       placeholder="Type to filter..."
                       onChange={filterDropdownItems} />
                     {stateOptions.map(({ code, name }) => (
