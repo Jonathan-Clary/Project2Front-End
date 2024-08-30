@@ -10,6 +10,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 import { AuthProvider } from './contexts/AuthContext';
 import { BrowserRouter } from 'react-router-dom';
+import { GlobalProvider } from './contexts/GlobalContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,7 +19,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <GlobalProvider>
+          <App />
+        </GlobalProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

@@ -14,8 +14,13 @@ import { HotelInterface } from "../../interfaces/HotelInterface";
 import createAxiosInstance from "../../services/AxiosInstance";
 import { useAuth } from "../../contexts/AuthContext";
 import StarRating from "./StarRating";
+import ReviewCard from "../reviews/ReviewCard";
+import { ReviewInterface } from "../../interfaces/ReviewInterface";
+import { CardComponent } from "./CardComponent";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 function HotelDetails(hotels: HotelInterface) {
+  const [reviews, setReviews] = useState<ReviewInterface[]>([]);
   const [isFavorite, setIsFavorite] = useState();
   const [show, setShow] = useState(false);
   const { user, token } = useAuth();
@@ -24,18 +29,28 @@ function HotelDetails(hotels: HotelInterface) {
   const axiosInstance = createAxiosInstance(token);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const { handleToastShow } = useGlobalContext();
+  
   const favorite = async () => {
     const response = await axiosInstance.post("/favorites", {
       dateAdded: new Date(),
       userId: user?.userId,
       hotel: hotels,
     });
+    handleToastShow(`Hotel was favorited Successfully`, 'success');
   };
+
+  const getReviews = async () => {
+    const response = await axiosInstance.get("/reviews/hotel/" + hotels.hotelId);
+    setReviews(response.data)
+  }
   const unfavorite = async () => {
     const response = await axiosInstance.delete(
       "/favorites/hotel/" + hotels.hotelId + "/user/" + user?.userId
     )
+    handleToastShow(`Hotel was unfavorited Successfully`, 'success');
   };
+
   const bookHotel = async () => {
     const response = await axiosInstance.post("/stays", {
       userId: user?.userId,
@@ -46,13 +61,19 @@ function HotelDetails(hotels: HotelInterface) {
     })
     console.log("check in date" + checkInDate)
     console.log("check out date" + checkOutDate)
+    handleToastShow(`Hotel was booked Successfully`, 'success');
   }
+
   const isFavorited = async() =>{
     const response = await axiosInstance.get(
       "/favorites/hotel/" + hotels.hotelId + "/user/" + user?.userId
     )
     setIsFavorite(response.data)
     console.log(isFavorite)
+  }
+  const onModalOpen = () => {
+    isFavorited()
+    getReviews()
   }
   return (
     <>
@@ -71,7 +92,7 @@ function HotelDetails(hotels: HotelInterface) {
       </div>
 
       <Modal
-        onShow={isFavorited}
+        onShow={onModalOpen}
         show={show}
         onHide={handleClose}
         backdrop="static"
@@ -96,11 +117,7 @@ function HotelDetails(hotels: HotelInterface) {
                 </CarouselItem>
               </Carousel>
             </Container>
-            <Card.Text>Sample Room Text </Card.Text>
-            <div className="d-flex justify-content-between">
-              <div>Number of Guests</div>
-              <input type="number" name="" id="" />
-            </div>
+            <Card.Text>Come Stay with Us! </Card.Text>
             <div className="d-flex justify-content-between">
               <div>Check-In Date</div>
               <input type="datetime-local" name="" id="" onChange={e =>setCheckInDate(e.target.value)} />
@@ -110,6 +127,9 @@ function HotelDetails(hotels: HotelInterface) {
               <input type="datetime-local" name="" id="" onChange={e =>setCheckOutDate(e.target.value)}/>
             </div>
           </Card.Body>
+          
+        
+        
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -123,9 +143,12 @@ function HotelDetails(hotels: HotelInterface) {
           </Button>}
           <Button variant="primary" onClick={bookHotel}>Book Hotel</Button>
         </Modal.Footer>
+        {reviews.map((review, index) => (
+          <ReviewCard {...review}></ReviewCard>
+        ))}
       </Modal>
+      
     </>
   );
 }
-
 export default HotelDetails;
