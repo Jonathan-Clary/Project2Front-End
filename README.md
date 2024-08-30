@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Project 2 Front-End
 
 ## TOOLS (TEMP PLACEHOLDER)
@@ -25,3 +26,9 @@ TEXT HERE
 
 # Image Source
 - *User Login Page Image:* https://www.pexels.com/photo/globe-on-sand-346696/  
+=======
+# Project2Front-End
+Front-End for Project 2
+
+Please push to the development branch
+>>>>>>> main
