@@ -31,11 +31,13 @@ function HotelDetails(hotels: HotelInterface) {
       hotel: hotels,
     });
   };
+
   const unfavorite = async () => {
     const response = await axiosInstance.delete(
       "/favorites/hotel/" + hotels.hotelId + "/user/" + user?.userId
     )
   };
+
   const bookHotel = async () => {
     const response = await axiosInstance.post("/stays", {
       userId: user?.userId,
@@ -47,6 +49,7 @@ function HotelDetails(hotels: HotelInterface) {
     console.log("check in date" + checkInDate)
     console.log("check out date" + checkOutDate)
   }
+
   const isFavorited = async() =>{
     const response = await axiosInstance.get(
       "/favorites/hotel/" + hotels.hotelId + "/user/" + user?.userId
@@ -54,6 +57,7 @@ function HotelDetails(hotels: HotelInterface) {
     setIsFavorite(response.data)
     console.log(isFavorite)
   }
+  
   return (
     <>
        <div className="d-flex justify-content-between align-items-center mb-2">
@@ -127,5 +131,4 @@ function HotelDetails(hotels: HotelInterface) {
     </>
   );
 }
-
 export default HotelDetails;
