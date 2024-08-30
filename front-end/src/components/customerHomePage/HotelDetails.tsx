@@ -17,6 +17,7 @@ import StarRating from "./StarRating";
 import ReviewCard from "../reviews/ReviewCard";
 import { ReviewInterface } from "../../interfaces/ReviewInterface";
 import { CardComponent } from "./CardComponent";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 function HotelDetails(hotels: HotelInterface) {
   const [reviews, setReviews] = useState<ReviewInterface[]>([]);
@@ -28,6 +29,7 @@ function HotelDetails(hotels: HotelInterface) {
   const axiosInstance = createAxiosInstance(token);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const { handleToastShow } = useGlobalContext();
   
   const favorite = async () => {
     const response = await axiosInstance.post("/favorites", {
@@ -35,6 +37,7 @@ function HotelDetails(hotels: HotelInterface) {
       userId: user?.userId,
       hotel: hotels,
     });
+    handleToastShow(`Hotel was favorited Successfully`, 'success');
   };
 
   const getReviews = async () => {
@@ -45,6 +48,7 @@ function HotelDetails(hotels: HotelInterface) {
     const response = await axiosInstance.delete(
       "/favorites/hotel/" + hotels.hotelId + "/user/" + user?.userId
     )
+    handleToastShow(`Hotel was unfavorited Successfully`, 'success');
   };
 
   const bookHotel = async () => {
@@ -57,6 +61,7 @@ function HotelDetails(hotels: HotelInterface) {
     })
     console.log("check in date" + checkInDate)
     console.log("check out date" + checkOutDate)
+    handleToastShow(`Hotel was booked Successfully`, 'success');
   }
 
   const isFavorited = async() =>{
@@ -112,11 +117,7 @@ function HotelDetails(hotels: HotelInterface) {
                 </CarouselItem>
               </Carousel>
             </Container>
-            <Card.Text>Sample Room Text </Card.Text>
-            <div className="d-flex justify-content-between">
-              <div>Number of Guests</div>
-              <input type="number" name="" id="" />
-            </div>
+            <Card.Text>Come Stay with Us! </Card.Text>
             <div className="d-flex justify-content-between">
               <div>Check-In Date</div>
               <input type="datetime-local" name="" id="" onChange={e =>setCheckInDate(e.target.value)} />

@@ -1,4 +1,4 @@
-import { Carousel, CarouselItem, Container, Spinner} from "react-bootstrap";
+import { CardText, Carousel, CarouselItem, Container, Spinner} from "react-bootstrap";
 import { CardComponent } from "./CardComponent";
 import { HotelInterface } from "../../interfaces/HotelInterface";
 import Pagination from "react-bootstrap/Pagination";
@@ -8,6 +8,7 @@ import createAxiosInstance from "../../services/AxiosInstance";
 import { SearchBarComponent } from "./SearchBarComponent";
 import { FavoriteInterface } from "../../interfaces/FavoriteInterface";
 import './CustomerHomePage.css'
+import { MDBCardBody } from "mdb-react-ui-kit";
 export const CustomerHomePage: React.FC = () => {
 
 
@@ -42,10 +43,12 @@ export const CustomerHomePage: React.FC = () => {
 
   }, [])
   return (
-    <Container>
-      <section>
-        <h2>Where is your Destination?</h2>
-      </section>
+    <Container >
+      <br></br>
+      <div className="text-center">
+      <h1>Where is your Destination?</h1>
+      </div>
+       
       <Container>
         <SearchBarComponent />
       </Container>

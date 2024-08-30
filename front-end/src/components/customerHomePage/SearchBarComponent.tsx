@@ -102,7 +102,7 @@ export const SearchBarComponent: React.FC = () => {
       ) : (
         <>
           <Container className="d-flex justify-content-center align-items-center mb-3 mt-5 p-4">
-            <Row className="w-100">
+            <Row className="d-flex">
               <Col xs={9}>
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="City">
@@ -115,7 +115,7 @@ export const SearchBarComponent: React.FC = () => {
 
               <Col xs={3}>
                 <Dropdown>
-                  <Dropdown.Toggle id="dropdown-custom-components" className="custom-toggle">
+                  <Dropdown.Toggle id="dropdown-custom-components" className="custom-toggle" >
                     {stateOptions.find(option => option.code === state)?.name || 'Select State'}
                   </Dropdown.Toggle>
 
