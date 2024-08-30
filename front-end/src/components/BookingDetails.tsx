@@ -121,18 +121,7 @@ export const BookingDetails: React.FC<BookingHistoryCardDetailsProps> = ({show, 
                                     </Col>
                                 </Row>
                                 
-                                {isReviewed ? <Row>
-                                    <Col xs={12} sm={6} md={6} lg={6}>
-                                        <Form.Group controlId="userReview">
-                                            <Form.Label>Your Review</Form.Label>
-                                            <Container>
-                                                <StarRating rating={booking.hotel.rating}/>
-                                            </Container>
-                                        </Form.Group>
-                                    </Col>
-                                </Row> :
-                                <></>
-                                }
+
                                 <Row className="d-flex justify-content-center align-items-center">
                                     <Col xs="auto">
                                         {isFavorite ? <Button className="" variant="outline-danger" onClick={unfavorite}>
