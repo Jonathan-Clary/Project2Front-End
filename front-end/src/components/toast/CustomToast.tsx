@@ -10,7 +10,7 @@ export const CustomToast: React.FC = () => {
       }
 
     return (
-        <ToastContainer position="top-end" className="p-3" style={{ zIndex: 1 }}>
+        <ToastContainer position="top-end" className="p-3">
        <Toast bg={toastBg} onClose={() => handleToastHide()} show={showToast} delay={3000} autohide>
         <Toast.Header>
             <strong className="me-auto">{capitalizeFirstLetter(toastBg!)}</strong>
