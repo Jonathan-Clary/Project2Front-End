@@ -14,6 +14,7 @@ import { ReviewSupportTickets } from './components/SupportTickets/ReviewSupportT
 import { CustomerSupport } from './components/SupportTickets/CustomerSupport';
 import { CustomToast } from './components/toast/CustomToast';
 import { useGlobalContext } from './contexts/GlobalContext';
+import VerifyPage from './components/login-components/Verify';
 
 function App() {
   const { token } = useAuth();
@@ -23,7 +24,8 @@ function App() {
       {token != null ? <Navigation/> : <></>}
       <CustomToast />
       <Routes>
-        <Route path="/login" element={<LoginContainer />} />
+        <Route path="/verify/*" element={<VerifyPage />} />
+        <Route path="/login/" element={<LoginContainer />} />
         <Route path="/register" element={<Register/>} /> 
         <Route path="/" element={token ? <CustomerHomePage /> : <Navigate to="/login" />} />
         <Route path="/profile" element={token ? <UserProfile /> : <Navigate to="/login" />} />
